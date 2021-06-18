@@ -5,9 +5,7 @@
 #include <string>
 #include <cstdint>
 
-class Student {
-public:
-	enum class Gender {
+enum class Gender {
 	agender,
 	androgynous,
 	female,
@@ -16,8 +14,9 @@ public:
 	male,
 	nonbinary,
 	other,
-	};
+};
 
+class Student {
 public:
 	//TODO: Make a separate struct
 	using pesel_type = std::uint64_t;
@@ -25,15 +24,19 @@ public:
 	//TODO: Implement PESEL validation function
 	static bool validatePeselNumber(pesel_type);
 
-	Student(const std::string& name, const std::string& surname, const std::string& address, unsigned int id_number, pesel_type pesel, Gender sex);
-	Student(const std::string& name, const std::string& surname, const std::string& address, unsigned int id_number, pesel_type pesel);
+	Student(const std::string&, const std::string&, const std::string&, unsigned int, pesel_type, Gender);
 
 	//Getters TODO: Implement getters
 	[[nodiscard]] std::string get_name() const;
+	
 	[[nodiscard]] std::string get_surname() const;
+
 	[[nodiscard]] std::string get_address() const;
+
 	[[nodiscard]] uint64_t get_pesel() const;
-	[[nodiscard]] Gender get_sex() const;
+
+	[[nodiscard]] Gender get_gender() const
+	{ return gender_; }
 
 	//Setters TODO: Implement setters
 	void set_gender(Gender);
@@ -51,6 +54,8 @@ private:
 	Gender gender_;
 };
 
-std::ostream& operator<< (std::ostream& out, const Student& student);
+std::ostream& operator<< (std::ostream&, const Student&);
+std::ostream& operator<< (std::ostream&, const Gender);
+
 
 #endif /* STUDENT_HPP */
