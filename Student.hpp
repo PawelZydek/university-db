@@ -14,6 +14,7 @@ enum class Gender {
 	male,
 	nonbinary,
 	other,
+	maxGender,
 };
 
 class Student {
@@ -21,13 +22,13 @@ public:
 	//TODO: Make a separate struct
 	using pesel_type = std::uint64_t;
 
-	//TODO: Implement PESEL validation function
-	static bool validatePeselNumber(pesel_type);
-
 	Student(const std::string&, const std::string&, const std::string&, unsigned int, pesel_type, Gender);
 
 	//Getters TODO: Implement getters
-	[[nodiscard]] std::string get_name() const;
+	[[nodiscard]] std::string get_name() const
+	{
+		return name_;
+	}
 	
 	[[nodiscard]] std::string get_surname() const;
 
