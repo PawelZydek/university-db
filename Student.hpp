@@ -1,12 +1,25 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
-#include "Gender.hpp"
+
 #include <iostream>
 #include <string>
 #include <cstdint>
 
 class Student {
 public:
+	enum class Gender {
+	agender,
+	androgynous,
+	female,
+	genderfluid,
+	intersex,
+	male,
+	nonbinary,
+	other,
+	};
+
+public:
+	//TODO: Make a separate struct
 	using pesel_type = std::uint64_t;
 
 	//TODO: Implement PESEL validation function
