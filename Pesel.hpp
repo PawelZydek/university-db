@@ -3,7 +3,6 @@
 
 #include "Gender.hpp"
 
-#include <cstdbool>
 #include <cstdint>
 
 /**
