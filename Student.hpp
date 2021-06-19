@@ -25,25 +25,30 @@ public:
 	Student(const std::string&, const std::string&, const std::string&, unsigned int, pesel_type, Gender);
 
 	//Getters TODO: Implement getters
-	[[nodiscard]] std::string get_name() const
-	{
-		return name_;
-	}
-	
+	[[nodiscard]] std::string get_name() const;
+
 	[[nodiscard]] std::string get_surname() const;
+
+	[[nodiscard]] unsigned int get_id_number() const;
 
 	[[nodiscard]] std::string get_address() const;
 
 	[[nodiscard]] uint64_t get_pesel() const;
 
-	[[nodiscard]] Gender get_gender() const
-	{ return gender_; }
+	[[nodiscard]] Gender get_gender() const;
 
 	//Setters TODO: Implement setters
+
 	void set_gender(Gender);
+
 	void set_name(const std::string&);
+
 	void set_surname(const std::string&);
+
+	void set_id_number(unsigned int);
+
 	void set_address(const std::string&);
+
 	void set_pesel(pesel_type);
 
 private:
@@ -51,7 +56,7 @@ private:
 	std::string surname_;
 	std::string address_;
 	uint64_t pesel_;
-	const unsigned int id_number_;
+	unsigned int id_number_;
 	Gender gender_;
 };
 
