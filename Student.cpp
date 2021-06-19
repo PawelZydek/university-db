@@ -24,8 +24,8 @@ std::ostream& operator<< (std::ostream& out, const Gender gender)
 //TODO: Overload << operator for Student
 std::ostream& operator<< (std::ostream& out, const Student& student)
 {
-	return out << student.get_name() << " " << student.get_surname() << " " << student.get_address() 
-		<< " " << student.get_id_number() << " " << student.get_pesel() << " " << student.get_gender();
+	return out << student.get_name() << ',' << student.get_surname() << ',' << student.get_address() 
+		<< ',' << student.get_id_number() << ',' << student.get_pesel() << ',' << student.get_gender();
 }
 
 //Setters' implementation
