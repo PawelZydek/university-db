@@ -103,3 +103,11 @@ bool Pesel::validation_check_digit()
     check_digit%=10;
     return check_digit!=check_digit_;
 }
+
+bool Pesel::validation()
+{
+    if(validation_check_digit() || validation_data()){
+        return true;
+    }
+    return false;
+}
