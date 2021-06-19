@@ -3,7 +3,8 @@
 #include <array>
 #include <utility>
 
-Student::Student(const std::string& name, const std::string& surname, const std::string& address, unsigned int id_number, pesel_type pesel, Gender gender)
+Student::Student (const std::string& name, const std::string& surname, const std::string& address,
+unsigned int id_number, pesel_type pesel, Gender gender)
 	: name_{ name }, surname_{ surname }, address_{ address }, id_number_{ id_number }, pesel_{ pesel }, gender_{ gender }
 {
 }
@@ -23,13 +24,14 @@ std::ostream& operator<< (std::ostream& out, const Gender gender)
 //TODO: Overload << operator for Student
 std::ostream& operator<< (std::ostream& out, const Student& student)
 {
-	return out << student.get_name() << " " << student.get_surname() << " " << student.get_address() << " " << student.get_id_number() << " " << student.get_pesel() << " " << student.get_gender();
+	return out << student.get_name() << " " << student.get_surname() << " " << student.get_address() 
+		<< " " << student.get_id_number() << " " << student.get_pesel() << " " << student.get_gender();
 }
 
-//Setters implementation
-void Student::set_gender(Gender)
+//Setters' implementation
+void Student::set_gender(Gender gender)
 {
-	gender_ = Gender::other;
+	gender_ = gender;
 }
 
 void Student::set_name(const std::string& name)
