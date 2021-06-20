@@ -1,21 +1,10 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
 
+#include "Gender.hpp"
 #include <iostream>
 #include <cstdint>
 #include <string>
-
-enum class Gender {
-	agender,
-	androgynous,
-	female,
-	genderfluid,
-	intersex,
-	male,
-	nonbinary,
-	other,
-	maxGender,
-};
 
 class Student {
 public:

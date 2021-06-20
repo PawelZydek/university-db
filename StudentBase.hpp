@@ -5,11 +5,14 @@
 
 class StudentBase {
 public:
-	//Add student
-	void add_student(Student&);
-	//Display students list
-	void display_students_list() const;
+  StudentBase() = default;
+
+  // Add student
+  void add_student(Student&);
+  // Display students list
+  void display_list() const;
+
 private:
-	std::forward_list<Student> studensts_list;
+  std::forward_list<Student> student_list_;
 };
 #endif /* STUDENTBASE_HPP */

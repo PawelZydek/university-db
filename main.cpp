@@ -1,27 +1,25 @@
 ﻿#include "Student.hpp"
 #include "StudentBase.hpp"
+#include <iostream>
+#include <chrono>
+#include <iomanip>
 
 int main()
 {
-	Student student1{ "Tom", "Kowalski", "Krakow", 23456, 77100228515, Gender::male };
-	Student student2{ "Joanna", "Rand", "detroit", 451234, 63013501363, Gender::female };
-	Student student3{ "Peter", "Parker", "Manhattan", 736124, 82061361731, Gender::male };
+	using namespace std::chrono;
 
-	std::cout << "Tom is: " << student1.get_gender() << '\n';
+	Student studentFirst{ "Tom", "Kowalski", "Krakow", 23456, 77100228515, Gender::male };
+	Student studentSecond{ "Mateusz", "Borek", "Debica", 12345, 11111111111, Gender::male };
+	StudentBase base{};
 
-	student1.set_name("Pawel");
+	auto start{ steady_clock::now() };
+	for(int i = 0; i < 1000000; ++i)
+	{
+		base.add_student(studentFirst);
+		base.add_student(studentSecond);
+	}
+	auto end{ steady_clock::now() };
+	std::cout << std::fixed << duration<double>{ end - start }.count() << "s\n";
 
-	std::cout << "\n" << student1 << "\n\n";
-
-	StudentBase Base;
-
-	Base.add_student(student1);
-	Base.add_student(student2);
-	Base.add_student(student3);
-
-	Base.display_students_list();
-
-
-	//student2.display_students_list();
-
+	return 0;
 }
