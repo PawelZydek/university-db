@@ -1,4 +1,7 @@
 #include "Pesel.hpp"
+#include <cmath>
+#include <sstream>
+#include <iomanip>
 
 Pesel::Pesel(uint32_t birth, uint16_t serial, uint8_t check_digit)
     : date_of_birth_{birth}, serial_number_{serial}, check_digit_{check_digit} {
@@ -128,9 +131,48 @@ bool Pesel::validation_check_digit() {
   return check_digit != check_digit_;
 }
 
+std::string Pesel::get_string() const {
+  std::string str{};
+  str.reserve(11);
+  for (int i = 0; i < birthDateLen - std::log10(date_of_birth_) - 1; ++i) {
+    str.push_back('0');
+  }
+  str += std::to_string(date_of_birth_);
+  for (int i = 0; i < serialNumberLen - std::log10(serial_number_) - 1; ++i) {
+    str.push_back('0');
+  }
+  str += std::to_string(serial_number_);
+  str += std::to_string(check_digit_);
+  return str;
+}
+
 bool Pesel::is_valid() {
   if (validation_check_digit() || validation_date()) {
     return false;
   }
   return true;
+}
+
+std::istream& operator>> (std::istream& in, Pesel& pesel)
+{
+  std::string str{};
+  str.reserve(Pesel::totalLen);
+  char ch{};
+  for(int i = 0; i < Pesel::totalLen; ++i)
+  {
+    in >> ch;
+    if(!isdigit(ch))
+    {
+      in.putback(ch);
+      in.clear(std::ios_base::failbit);
+      return in;
+    }
+    str.push_back(ch);
+  }
+  pesel.date_of_birth_ = std::stoi(str.substr(0, Pesel::birthDateLen));
+  pesel.serial_number_ = std::stoi(
+    str.substr(Pesel::birthDateLen, Pesel::serialNumberLen));
+  pesel.check_digit_ = str.back() - '0';
+
+  return in;
 }

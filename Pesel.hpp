@@ -4,6 +4,8 @@
 #include "Gender.hpp"
 
 #include <cstdint>
+#include <string>
+#include <iostream>
 
 /**
  *A structure that stores a PESEL number (Universal Electronic System for Registration of the Population).
@@ -12,7 +14,12 @@
 class Pesel
 {
 public:
+  static constexpr int birthDateLen{ 6 };
+  static constexpr int serialNumberLen{ 4 };
+  static constexpr int totalLen{ 11 };
+public:
     Pesel(uint32_t birth, uint16_t serial, uint8_t check_digit);
+    Pesel() = default;
 
     /**
      * The day of the birth month of the owner of the PESEL number,
@@ -37,19 +44,24 @@ public:
      */
     bool is_valid();
 
+    [[nodiscard]] std::string get_string() const;
+
+    friend std::istream& operator>> (std::istream&, Pesel&);
+
 private:
+
   /**
    * Date of birth in the owner of the PESEL number in the YYMMDD format.
    */
-  uint32_t date_of_birth_;
+  uint32_t date_of_birth_{};
   /**
    * Serial number with gender indication.
    */
-  uint16_t serial_number_;
+  uint16_t serial_number_{};
   /**
    * Check digit.
    */
-  uint8_t check_digit_;
+  uint8_t check_digit_{};
 
   // Validation functions
   bool validation_date();
