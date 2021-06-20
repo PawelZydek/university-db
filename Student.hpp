@@ -1,10 +1,21 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
 
-#include "Gender.hpp"
 #include <iostream>
-#include <string>
 #include <cstdint>
+#include <string>
+
+enum class Gender {
+	agender,
+	androgynous,
+	female,
+	genderfluid,
+	intersex,
+	male,
+	nonbinary,
+	other,
+	maxGender,
+};
 
 class Student {
 public:
@@ -27,7 +38,6 @@ public:
 	[[nodiscard]] Gender get_gender() const;
 
 	//Setters TODO: Implement setters
-
 	void set_gender(Gender);
 
 	void set_name(const std::string&);
