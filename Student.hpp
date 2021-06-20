@@ -9,7 +9,7 @@
 
 class Student {
 public:
-	Student(const std::string&, const std::string&, const std::string&, unsigned int, Pesel&, Gender);
+	Student(const std::string&, const std::string&, const std::string&, unsigned int, const Pesel&, Gender);
 
 	//Getters TODO: Implement getters
 	[[nodiscard]] std::string get_name() const;

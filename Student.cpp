@@ -4,7 +4,7 @@
 #include <string_view>
 
 Student::Student(const std::string& name, const std::string& surname, const std::string& address, 
-	unsigned int id_number, Pesel& pesel, Gender gender)
+	unsigned int id_number, const Pesel& pesel, Gender gender)
 	: name_{ name }, surname_{ surname }, address_{ address }, id_number_{ id_number }, pesel_{ pesel }, gender_{ gender }
 {
 }
