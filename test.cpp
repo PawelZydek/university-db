@@ -4,6 +4,7 @@
 #include <random>
 #include <array>
 #include <string_view>
+#include <sstream>
 
 int randomNumberGen(int min, int max)
 {

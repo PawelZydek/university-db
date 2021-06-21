@@ -1,10 +1,10 @@
 #include "Student.hpp"
-#include <string_view>
 #include <array>
 #include <utility>
+#include <string_view>
 
-Student::Student (const std::string& name, const std::string& surname, const std::string& address,
-unsigned int id_number, pesel_type pesel, Gender gender)
+Student::Student(const std::string& name, const std::string& surname, const std::string& address, 
+	unsigned int id_number, const Pesel& pesel, Gender gender)
 	: name_{ name }, surname_{ surname }, address_{ address }, id_number_{ id_number }, pesel_{ pesel }, gender_{ gender }
 {
 }
@@ -24,14 +24,14 @@ std::ostream& operator<< (std::ostream& out, const Gender gender)
 //TODO: Overload << operator for Student
 std::ostream& operator<< (std::ostream& out, const Student& student)
 {
-	return out << student.get_name() << ',' << student.get_surname() << ',' << student.get_address() 
-		<< ',' << student.get_id_number() << ',' << student.get_pesel() << ',' << student.get_gender();
+	return out << student.get_name() << " " << student.get_surname() << " " << student.get_address() 
+		<< " " << student.get_id_number() << " " << student.get_pesel().get_string() << " " << student.get_gender();
 }
 
-//Setters' implementation
-void Student::set_gender(Gender gender)
+//Setters implementation
+void Student::set_gender(Gender)
 {
-	gender_ = gender;
+	gender_ = Gender::other;
 }
 
 void Student::set_name(const std::string& name)
@@ -53,7 +53,7 @@ void Student::set_id_number(unsigned int id_number)
 {
 	id_number_ = id_number;
 }
-void Student::set_pesel(pesel_type pesel)
+void Student::set_pesel(Pesel& pesel)
 {
 	pesel_ = pesel;
 }
@@ -79,7 +79,7 @@ void Student::set_pesel(pesel_type pesel)
 	return id_number_;
 }
 
-[[nodiscard]] uint64_t Student::get_pesel() const
+[[nodiscard]] Pesel Student::get_pesel() const
 {
 	return pesel_;
 }

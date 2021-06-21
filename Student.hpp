@@ -2,16 +2,14 @@
 #define STUDENT_HPP
 
 #include "Gender.hpp"
+#include "Pesel.hpp"
 #include <iostream>
-#include <string>
 #include <cstdint>
+#include <string>
 
 class Student {
 public:
-	//TODO: Make a separate struct
-	using pesel_type = std::uint64_t;
-
-	Student(const std::string&, const std::string&, const std::string&, unsigned int, pesel_type, Gender);
+	Student(const std::string&, const std::string&, const std::string&, unsigned int, const Pesel&, Gender);
 
 	//Getters TODO: Implement getters
 	[[nodiscard]] std::string get_name() const;
@@ -22,12 +20,11 @@ public:
 
 	[[nodiscard]] std::string get_address() const;
 
-	[[nodiscard]] uint64_t get_pesel() const;
+	[[nodiscard]] Pesel get_pesel() const;
 
 	[[nodiscard]] Gender get_gender() const;
 
 	//Setters TODO: Implement setters
-
 	void set_gender(Gender);
 
 	void set_name(const std::string&);
@@ -38,15 +35,15 @@ public:
 
 	void set_address(const std::string&);
 
-	void set_pesel(pesel_type);
+	void set_pesel(Pesel&);
 
 private:
-	std::string name_;
-	std::string surname_;
-	std::string address_;
-	uint64_t pesel_;
-	unsigned int id_number_;
-	Gender gender_;
+	std::string name_{};
+	std::string surname_{};
+	std::string address_{};
+	Pesel pesel_{};
+	unsigned int id_number_{};
+	Gender gender_{};
 };
 
 std::ostream& operator<< (std::ostream&, const Student&);
