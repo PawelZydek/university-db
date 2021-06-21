@@ -12,6 +12,8 @@ public:
   // Display students list
   void display_list() const;
 
+  void sort_by_pesel();
+
 private:
   std::forward_list<Student> student_list_;
 };
