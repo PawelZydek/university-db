@@ -22,7 +22,7 @@ TEST(peselTests, ShouldCheckPeselValidity)
     EXPECT_FALSE(invalidCheckDigitPesel.is_valid());
     EXPECT_FALSE(invalidDatePesel.is_valid());
 }
-/*
+
 TEST(peselTests, ShouldReturnDate)
 {
     // 11.5.1908
@@ -32,15 +32,15 @@ TEST(peselTests, ShouldReturnDate)
     EXPECT_EQ(1908, pesel.get_year());
     // 17.9.1973
     Pesel pesel1{ 730917, 1173, 9};
-    EXPECT_EQ(17, pesel.get_day());
-    EXPECT_EQ(9, pesel.get_month());
-    EXPECT_EQ(1973, pesel.get_year());
+    EXPECT_EQ(17, pesel1.get_day());
+    EXPECT_EQ(9, pesel1.get_month());
+    EXPECT_EQ(1973, pesel1.get_year());
     // 22.11.2007
     Pesel pesel2{ 73122, 1115, 9};
-    EXPECT_EQ(22, pesel.get_day());
-    EXPECT_EQ(11, pesel.get_month());
-    EXPECT_EQ(2007, pesel.get_year());
-}*/
+    EXPECT_EQ(22, pesel2.get_day());
+    EXPECT_EQ(11, pesel2.get_month());
+    EXPECT_EQ(2007, pesel2.get_year());
+}
 
 TEST(peselTests, ShouldReturnString)
 {
@@ -59,26 +59,4 @@ TEST(peselTests, ShouldExtractFromStream)
 
     ASSERT_EQ(peselStr.size(), pesel.get_string().size());
     EXPECT_EQ(pesel.get_string(), peselStr);
-}
-
-TEST(getterTests, ShouldGetRandomName)
-{
-    Pesel pesel{72915, 7475, 1};
-    using namespace std::string_view_literals;
-    static constexpr std::array<std::string_view, 5> names
-    {
-        "Wojciech"sv, "Mateusz"sv, "Krzysztof"sv, "Michal"sv, "Tomasz"sv
-    };
-    size_t index {randomNumberGen(0, 4)};
-    Student st{ names[index].data(), "-", "-", 1, pesel, Gender::male};
-    EXPECT_EQ(names[index], st.get_name());
-}
-
-TEST(getterTests, ShouldGetRandomGender)
-{
-    Pesel pesel{72915, 7475, 1};
-    int index{ randomNumberGen(0, static_cast<int>(Gender::maxGender)) };
-    Student st { "-", "-", "-",  1, pesel, static_cast<Gender>(index)};
-
-    EXPECT_EQ(static_cast<Gender>(index), st.get_gender());
 }
