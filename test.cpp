@@ -41,22 +41,3 @@ TEST(peselTests, ShouldReturnDate)
     EXPECT_EQ(2007, pesel2.get_year());
 }
 
-TEST(getterTests, ShouldGetRandomName)
-{
-    using namespace std::string_view_literals;
-    static constexpr std::array<std::string_view, 5> names
-    {
-        "Wojciech"sv, "Mateusz"sv, "Krzysztof"sv, "Michal"sv, "Tomasz"sv
-    };
-    size_t index {randomNumberGen(0, 4)};
-    Student st{ names[index].data(), "-", "-", 1, 1, Gender::male};
-    EXPECT_EQ(names[index], st.get_name());
-}
-
-TEST(getterTests, ShouldGetRandomGender)
-{
-    int index{ randomNumberGen(0, static_cast<int>(Gender::maxGender)) };
-    Student st { "-", "-", "-",  1, 1, static_cast<Gender>(index)};
-
-    EXPECT_EQ(static_cast<Gender>(index), st.get_gender());
-}
