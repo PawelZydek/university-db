@@ -1,6 +1,8 @@
 #ifndef GENDER_HPP
 #define GENDER_HPP
 
+#include <iostream>
+
 enum class Gender {
 	agender,
 	androgynous,
