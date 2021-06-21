@@ -47,7 +47,6 @@ private:
 };
 
 std::ostream& operator<< (std::ostream&, const Student&);
-std::ostream& operator<< (std::ostream&, const Gender);
 
 
 #endif /* STUDENT_HPP */

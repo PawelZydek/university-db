@@ -18,6 +18,11 @@ std::ostream& operator<< (std::ostream& out, const Gender gender)
 		"intersex"sv, "male"sv, "nonbinary"sv, "other"sv
 	};
 
+	if( static_cast<int>(gender) >= genderStringLiterals.size() || static_cast<int>(gender) < 0)
+	{
+		out.clear(std::ios_base::failbit);
+		return out;
+	}
 	return out << genderStringLiterals[static_cast<size_t>(gender)];
 }
 
