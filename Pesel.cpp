@@ -138,3 +138,16 @@ std::istream& operator>> (std::istream& in, Pesel& pesel)
 
   return in;
 }
+
+bool operator< (const Pesel& pesel1, const Pesel& pesel2)
+{
+  if(pesel1.date_of_birth_ != pesel2.date_of_birth_)
+  {
+    return pesel1.date_of_birth_ < pesel2.date_of_birth_;
+  }
+  if(pesel1.serial_number_ != pesel2.serial_number_)
+  {
+    return pesel1.serial_number_ < pesel2.serial_number_;
+  }
+  return pesel1.check_digit_ < pesel2.check_digit_;
+}

@@ -47,6 +47,7 @@ public:
     [[nodiscard]] std::string get_string() const;
 
     friend std::istream& operator>> (std::istream&, Pesel&);
+    friend bool operator< (const Pesel& pesel1, const Pesel& pesel2);
 
 private:
 

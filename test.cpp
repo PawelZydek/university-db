@@ -42,3 +42,13 @@ TEST(peselTests, ShouldReturnDate)
     EXPECT_EQ(2007, pesel2.get_year());
 }
 
+TEST(peselTests, ShouldCompare)
+{
+    Pesel pesel1{ 8'05'11, 6667, 4};
+    Pesel pesel2{ 1'25'32, 6667, 4};
+    Pesel pesel3{ 1'25'32, 6667, 3};
+
+    EXPECT_TRUE(pesel2 < pesel1);
+    EXPECT_TRUE(pesel3 < pesel2);
+}
+
