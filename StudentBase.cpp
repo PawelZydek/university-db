@@ -18,3 +18,9 @@ void StudentBase::sort_by_pesel()
   student_list_.sort([](auto& st1, auto& st2)
   { return st1.get_pesel() < st2.get_pesel(); });
 }
+
+void StudentBase::sort_by_surname()
+{
+  student_list_.sort([](auto& st1, auto& st2)
+  { return st1.get_surname() < st2.get_surname(); });
+}

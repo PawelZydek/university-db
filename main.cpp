@@ -16,7 +16,7 @@ int main()
 	base.add_student(studentThird);
 
 	base.display_list();
-	base.sort_by_pesel();
+	base.sort_by_surname();
 	base.display_list();
 
 
