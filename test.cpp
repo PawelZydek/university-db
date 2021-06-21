@@ -25,20 +25,20 @@ TEST(peselTests, ShouldCheckPeselValidity)
 TEST(peselTests, ShouldReturnDate)
 {
     // 11.5.1908
-    Pesel pesel{ 80511, 6667, 4};
+    Pesel pesel{ 8'05'11, 6667, 4};
     EXPECT_EQ(11, pesel.get_day());
     EXPECT_EQ(5, pesel.get_month());
     EXPECT_EQ(1908, pesel.get_year());
     // 17.9.1973
-    Pesel pesel1{ 730917, 1173, 9};
-    EXPECT_EQ(17, pesel.get_day());
-    EXPECT_EQ(9, pesel.get_month());
-    EXPECT_EQ(1973, pesel.get_year());
+    Pesel pesel1{ 73'09'17, 1173, 9};
+    EXPECT_EQ(17, pesel1.get_day());
+    EXPECT_EQ(9, pesel1.get_month());
+    EXPECT_EQ(1973, pesel1.get_year());
     // 22.11.2007
-    Pesel pesel2{ 73122, 1115, 9};
-    EXPECT_EQ(22, pesel.get_day());
-    EXPECT_EQ(11, pesel.get_month());
-    EXPECT_EQ(2007, pesel.get_year());
+    Pesel pesel2{ 7'31'22, 1115, 9};
+    EXPECT_EQ(22, pesel2.get_day());
+    EXPECT_EQ(11, pesel2.get_month());
+    EXPECT_EQ(2007, pesel2.get_year());
 }
 
 TEST(getterTests, ShouldGetRandomName)

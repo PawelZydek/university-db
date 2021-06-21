@@ -11,17 +11,9 @@ int Pesel::get_month() { return ((date_of_birth_ / 100) % 20); }
 int Pesel::get_year() {
   int century = date_of_birth_ % 10'000;
   int year = date_of_birth_ / 10'000;
-  century /= 20;
-
-  if (year == 0) {
-    year += 100;
-  }
-  if (century == 4) {
-    century = 19;
-  } else {
-    century += 20;
-  }
-  year += century * 100;
+  century /= 2000;
+  century += 20;
+  year += (century - 1) * 100;
   return year;
 }
 
@@ -64,40 +56,10 @@ bool Pesel::validation_date() {
   int day = get_day();
   int month = get_month();
   int year = get_year();
-  if (1 > month || month > 12 || day < 1) {
+  if (1 > month || month > 12 || day < 1 || day > getDayCount( month, year)) {
     return true;
   }
-  if (2 == month) {
-    if (!year & 3) {
-      if (year % 25 == 0) {
-        if (!year & 15) {
-          if (day > 29) {
-            return true;
-          }
-        } else {
-          if (day > 28) {
-            return true;
-          }
-        }
-      } else {
-        if (day > 29) {
-          return true;
-        }
-      }
-    } else {
-      if (day > 28) {
-        return true;
-      }
-    }
-  } else if (((month & 1) && (month < 7)) || ((!(month & 1)) && (month > 6))) {
-    if (day > 31) {
-      return true;
-    }
-  } else {
-    if (day > 30) {
-      return true;
-    }
-  }
+
   return false;
 }
 
