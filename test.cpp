@@ -12,6 +12,17 @@ int randomNumberGen(int min, int max) {
   return gen(mersenne);
 }
 
+TEST(genderTests, ShouldParseFromStream)
+{
+  static constexpr std::string_view string{ "nonbinary" };
+  static constexpr Gender gender{ Gender::nonbinary };
+  std::stringstream stream{string.data()};
+
+  Gender gen{};
+  stream >> gen;
+  EXPECT_EQ(gender, gen);
+}
+
 TEST(peselTests, ShouldCheckPeselValidity) {
   Pesel validPesel{610209, 6495, 4};
   Pesel invalidCheckDigitPesel{610209, 6495, 5};

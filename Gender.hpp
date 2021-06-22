@@ -15,6 +15,7 @@ enum class Gender {
   maxGender,
 };
 
-std::ostream &operator<<(std::ostream &, const Gender);
+std::ostream& operator<<(std::ostream &, const Gender);
+std::istream& operator>> (std::istream& in, Gender&);
 
 #endif /* GENDER_HPP */
