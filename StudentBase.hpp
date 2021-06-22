@@ -8,7 +8,7 @@ public:
   StudentBase() = default;
 
   // Add student
-  void add_student(Student&);
+  void add_student(Student &);
   // Display students list
   void display_list() const;
 

@@ -1,7 +1,7 @@
 #include "Pesel.hpp"
 #include <cmath>
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 
 Pesel::Pesel(uint32_t birth, uint16_t serial, uint8_t check_digit)
     : date_of_birth_{birth}, serial_number_{serial}, check_digit_{check_digit} {
@@ -59,7 +59,7 @@ bool Pesel::validation_date() {
   int day = get_day();
   int month = get_month();
   int year = get_year();
-  if (1 > month || month > 12 || day < 1 || day > getDayCount( month, year)) {
+  if (1 > month || month > 12 || day < 1 || day > getDayCount(month, year)) {
     return true;
   }
 
@@ -115,16 +115,13 @@ bool Pesel::is_valid() {
   return true;
 }
 
-std::istream& operator>> (std::istream& in, Pesel& pesel)
-{
+std::istream &operator>>(std::istream &in, Pesel &pesel) {
   std::string str{};
   str.reserve(Pesel::totalLen);
   char ch{};
-  for(int i = 0; i < Pesel::totalLen; ++i)
-  {
+  for (int i = 0; i < Pesel::totalLen; ++i) {
     in >> ch;
-    if(!isdigit(ch))
-    {
+    if (!isdigit(ch)) {
       in.putback(ch);
       in.clear(std::ios_base::failbit);
       return in;
@@ -132,21 +129,18 @@ std::istream& operator>> (std::istream& in, Pesel& pesel)
     str.push_back(ch);
   }
   pesel.date_of_birth_ = std::stoi(str.substr(0, Pesel::birthDateLen));
-  pesel.serial_number_ = std::stoi(
-    str.substr(Pesel::birthDateLen, Pesel::serialNumberLen));
+  pesel.serial_number_ =
+      std::stoi(str.substr(Pesel::birthDateLen, Pesel::serialNumberLen));
   pesel.check_digit_ = str.back() - '0';
 
   return in;
 }
 
-bool operator< (const Pesel& pesel1, const Pesel& pesel2)
-{
-  if(pesel1.date_of_birth_ != pesel2.date_of_birth_)
-  {
+bool operator<(const Pesel &pesel1, const Pesel &pesel2) {
+  if (pesel1.date_of_birth_ != pesel2.date_of_birth_) {
     return pesel1.date_of_birth_ < pesel2.date_of_birth_;
   }
-  if(pesel1.serial_number_ != pesel2.serial_number_)
-  {
+  if (pesel1.serial_number_ != pesel2.serial_number_) {
     return pesel1.serial_number_ < pesel2.serial_number_;
   }
   return pesel1.check_digit_ < pesel2.check_digit_;
