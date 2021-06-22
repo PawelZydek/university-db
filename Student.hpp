@@ -9,6 +9,7 @@
 
 class Student {
 public:
+  Student() = default;
   Student(const std::string &, const std::string &, const std::string &,
           unsigned int, const Pesel &, Gender);
 
@@ -37,6 +38,8 @@ public:
   void set_address(const std::string &);
 
   void set_pesel(Pesel &);
+
+  friend std::istream& operator>> (std::istream& in, Student& student);
 
 private:
   std::string name_{};

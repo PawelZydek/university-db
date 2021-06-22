@@ -1,7 +1,22 @@
 #include "Student.hpp"
 #include <array>
-#include <string_view>
 #include <utility>
+#include <algorithm>
+
+std::string parseToChar(std::istream& in, char delim)
+{
+  std::string str{};
+  for(char ch{}; in >> ch; )
+  {
+    if(ch == delim)
+    {
+      in.putback(ch);
+      break;
+    }
+    str.push_back(ch);
+  }
+  return str;
+}
 
 Student::Student(const std::string &name, const std::string &surname,
                  const std::string &address, unsigned int id_number,
@@ -9,26 +24,33 @@ Student::Student(const std::string &name, const std::string &surname,
     : name_{name}, surname_{surname}, address_{address},
       id_number_{id_number}, pesel_{pesel}, gender_{gender} {}
 
-std::ostream &operator<<(std::ostream &out, const Gender gender) {
-  using namespace std::string_view_literals; // Don't worry ;)
-
-  static constexpr std::array<std::string_view, 8> genderStringLiterals{
-      "agender"sv,  "androgynous"sv, "female"sv,    "genderfluid"sv,
-      "intersex"sv, "male"sv,        "nonbinary"sv, "other"sv};
-
-  if (static_cast<int>(gender) >= genderStringLiterals.size() ||
-      static_cast<int>(gender) < 0) {
-    out.clear(std::ios_base::failbit);
-    return out;
-  }
-  return out << genderStringLiterals[static_cast<size_t>(gender)];
-}
-
 // TODO: Overload << operator for Student
 std::ostream &operator<<(std::ostream &out, const Student &student) {
   return out << student.get_name() << " " << student.get_surname() << " "
              << student.get_address() << " " << student.get_id_number() << " "
              << student.get_pesel().get_string() << " " << student.get_gender();
+}
+
+std::istream& operator>> (std::istream& in, Student& student)
+{
+  static constexpr char delim { ',' }; // CSV format
+  std::array<char, 5> sep{};
+  student.name_ = parseToChar(in, delim);
+  in >> sep[0];
+  student.surname_ = parseToChar(in, delim);
+  in >> sep[1];
+  student.address_ = parseToChar(in, delim);
+  in >> sep[2] >> student.id_number_ >> sep[3]
+    >> student.pesel_ >> sep[4] >> student.gender_;
+  
+  for(char ch : sep)
+  {
+    if(ch != delim)
+    {
+      in.clear(std::ios_base::failbit);
+    }
+  }
+  return in;
 }
 
 // Setters implementation
