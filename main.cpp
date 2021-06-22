@@ -16,7 +16,15 @@ int main()
 	base.add_student(studentThird);
 
 	base.display_list();
-	base.sort_by_surname();
+	try
+	{
+		base.erase_by_id(12345);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 	base.display_list();
 
 
