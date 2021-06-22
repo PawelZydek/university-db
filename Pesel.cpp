@@ -52,6 +52,8 @@ int getDayCount(int monthNumber, int year) {
     return 30;
   case 2:
     return isLeap(year) ? 29 : 28;
+  default:
+    return 0;
   }
 }
 
@@ -144,4 +146,11 @@ bool operator<(const Pesel &pesel1, const Pesel &pesel2) {
     return pesel1.serial_number_ < pesel2.serial_number_;
   }
   return pesel1.check_digit_ < pesel2.check_digit_;
+}
+
+bool operator== (const Pesel& pesel1, const Pesel& pesel2)
+{
+  return pesel1.date_of_birth_ == pesel2.date_of_birth_
+      && pesel1.serial_number_ == pesel2.serial_number_
+      && pesel1.check_digit_ == pesel2.check_digit_;
 }
