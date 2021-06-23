@@ -12,20 +12,18 @@ int randomNumberGen(int min, int max) {
   return gen(mersenne);
 }
 
-bool operator== (const Student& st1, const Student& st2)
-{
-  return st1.get_name() == st2.get_name() 
-      && st1.get_surname() == st2.get_surname()
-      && st1.get_address() == st2.get_address()
-      && st1.get_id_number() == st2.get_id_number()
-      && st1.get_pesel() == st2.get_pesel()
-      && st1.get_gender() == st2.get_gender();
+bool operator==(const Student &st1, const Student &st2) {
+  return st1.get_name() == st2.get_name() &&
+         st1.get_surname() == st2.get_surname() &&
+         st1.get_address() == st2.get_address() &&
+         st1.get_id_number() == st2.get_id_number() &&
+         st1.get_pesel() == st2.get_pesel() &&
+         st1.get_gender() == st2.get_gender();
 }
 
-TEST(genderTests, ShouldParseFromStream)
-{
-  static constexpr std::string_view string{ "nonbinary" };
-  static constexpr Gender gender{ Gender::nonbinary };
+TEST(genderTests, ShouldParseFromStream) {
+  static constexpr std::string_view string{"nonbinary"};
+  static constexpr Gender gender{Gender::nonbinary};
   std::stringstream stream{string.data()};
 
   Gender gen{};
@@ -33,14 +31,13 @@ TEST(genderTests, ShouldParseFromStream)
   EXPECT_EQ(gender, gen);
 }
 
-TEST(studentTests, ShouldParseFromStream)
-{
-  static constexpr std::string_view student
-  { "Mateusz,Borek,Debica,12345,77100228515,male" };
-  std::stringstream stream{ student.data() };
-  Student st{"Mateusz", "Borek", "Debica", 12345, 
-    Pesel{771002, 2851, 5}, Gender::male};
-  
+TEST(studentTests, ShouldParseFromStream) {
+  static constexpr std::string_view student{
+      "Mateusz,Borek,Debica,12345,77100228515,male"};
+  std::stringstream stream{student.data()};
+  Student st{"Mateusz",   "Borek", "Debica", 12345, Pesel{771002, 2851, 5},
+             Gender::male};
+
   Student parsedSt{};
   stream >> parsedSt;
 

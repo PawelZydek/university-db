@@ -40,7 +40,7 @@ void StudentBase::erase_by_id(unsigned int idNum) {
                            " is not registered"};
 }
 
-void StudentBase::write_to_file(const std::string &path) {
+void StudentBase::write_to_file(const std::string &path) const {
   std::ofstream stream{path};
 
   for (const auto &student : student_list_) {
@@ -59,28 +59,28 @@ void StudentBase::read_from_file(const std::string &path) {
   }
 }
 
-std::optional<Student> StudentBase::search_by_pesel(const Pesel& pesel) const
-{
+std::optional<Student> StudentBase::search_by_pesel(const Pesel &pesel) const {
   std::optional<Student> value{};
-  auto it = std::find_if(student_list_.cbegin(), student_list_.cend(), [&pesel](const auto& student)
-  { return student.get_pesel() == pesel; });
-  
-  if(it != student_list_.cend())
-  {
+  auto it = std::find_if(
+      student_list_.cbegin(), student_list_.cend(),
+      [&pesel](const auto &student) { return student.get_pesel() == pesel; });
+
+  if (it != student_list_.cend()) {
     value = *it;
   }
   return value;
 }
 
-std::optional<Student> StudentBase::search_by_surname(const std::string& surname) const
-{
+std::optional<Student>
+StudentBase::search_by_surname(const std::string &surname) const {
   std::optional<Student> value{};
 
-  auto it = std::find_if(student_list_.cbegin(), student_list_.cend(), [&surname](const auto& student)
-  { return student.get_surname() == surname; });
-  
-  if(it != student_list_.cend())
-  {
+  auto it = std::find_if(student_list_.cbegin(), student_list_.cend(),
+                         [&surname](const auto &student) {
+                           return student.get_surname() == surname;
+                         });
+
+  if (it != student_list_.cend()) {
     value = *it;
   }
   return value;
