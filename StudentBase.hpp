@@ -2,6 +2,7 @@
 #define STUDENTBASE_HPP
 #include "Student.hpp"
 #include <forward_list>
+#include <optional>
 
 class StudentBase {
 public:
@@ -20,6 +21,8 @@ public:
 
   void write_to_file(const std::string &);
   void read_from_file(const std::string &);
+
+  [[nodiscard]] std::optional<Student> search_by_pesel(const Pesel&) const;
 
 private:
   std::forward_list<Student> student_list_;

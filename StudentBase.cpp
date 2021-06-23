@@ -58,3 +58,16 @@ void StudentBase::read_from_file(const std::string &path) {
     add_student(st);
   }
 }
+
+std::optional<Student> StudentBase::search_by_pesel(const Pesel& pesel) const
+{
+  std::optional<Student> value{};
+  auto it = std::find_if(student_list_.cbegin(), student_list_.cend(), [&pesel](const auto& student)
+  { return student.get_pesel() == pesel; });
+  
+  if(it != student_list_.cend())
+  {
+    value = *it;
+  }
+  return value;
+}
