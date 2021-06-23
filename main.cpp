@@ -16,15 +16,17 @@ int main()
 	base.add_student(studentThird);
 
 	base.display_list();
+
+	base.write_to_file("Students.csv");
 	try
 	{
-		base.erase_by_id(12345);
+		base.read_from_file("Students.csv");
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	
+
 	base.display_list();
 
 

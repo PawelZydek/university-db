@@ -26,9 +26,9 @@ Student::Student(const std::string &name, const std::string &surname,
 
 // TODO: Overload << operator for Student
 std::ostream &operator<<(std::ostream &out, const Student &student) {
-  return out << student.get_name() << " " << student.get_surname() << " "
-             << student.get_address() << " " << student.get_id_number() << " "
-             << student.get_pesel().get_string() << " " << student.get_gender();
+  return out << student.get_name() << ',' << student.get_surname() << ','
+             << student.get_address() << ',' << student.get_id_number() << ','
+             << student.get_pesel().get_string() << ',' << student.get_gender();
 }
 
 std::istream& operator>> (std::istream& in, Student& student)

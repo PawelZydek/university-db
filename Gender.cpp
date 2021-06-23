@@ -23,13 +23,17 @@ std::istream& operator>> (std::istream& in, Gender& gender)
     for(char ch{}; in >> ch; )
     {
         if(isalpha(ch)){
+            ch = tolower(ch);
             str.push_back(ch);
+            if(std::find(genderStringLiterals.cbegin(), genderStringLiterals.cend(),
+            str) != genderStringLiterals.cend()){
+                break;
+            }
         } else{
             in.putback(ch);
             break;
         }
     }
-    std::transform(str.begin(), str.end(), str.begin(), tolower);
     auto it = std::find(genderStringLiterals.cbegin(), genderStringLiterals.cend(),
         str);
     auto distance = std::distance(genderStringLiterals.cbegin(), it);

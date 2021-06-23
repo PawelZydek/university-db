@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+#include <array>
 
 Pesel::Pesel(uint32_t birth, uint16_t serial, uint8_t check_digit)
     : date_of_birth_{birth}, serial_number_{serial}, check_digit_{check_digit} {
@@ -69,30 +70,18 @@ bool Pesel::validation_date() {
 }
 
 bool Pesel::validation_check_digit() {
-  uint8_t check_digit = 0;
-  uint32_t date_of_birth = date_of_birth_;
-  uint16_t serial_number = serial_number_;
-  check_digit += (date_of_birth % 10) * 3;
-  date_of_birth /= 10;
-  check_digit += (date_of_birth % 10);
-  date_of_birth /= 10;
-  check_digit += (date_of_birth % 10) * 9;
-  date_of_birth /= 10;
-  check_digit += (date_of_birth % 10) * 7;
-  date_of_birth /= 10;
-  check_digit += (date_of_birth % 10) * 3;
-  date_of_birth /= 10;
-  check_digit += (date_of_birth % 10);
-  check_digit += (serial_number % 10) * 3;
-  date_of_birth /= 10;
-  check_digit += (serial_number % 10);
-  date_of_birth /= 10;
-  check_digit += (serial_number % 10) * 9;
-  date_of_birth /= 10;
-  check_digit += (serial_number % 10) * 7;
-  check_digit %= 10;
-  // Returns false if the check_digit is valid
-  return check_digit != check_digit_;
+    static constexpr std::array<uint8_t, 11> weights 
+    {0, 3, 1, 9, 7, 3, 1, 9, 7, 3, 1};
+    uint64_t pesel= 100'000 * date_of_birth_ + 10 * serial_number_ + check_digit_;
+    uint8_t sum = 0;
+    uint8_t i = 0;
+    for(uint8_t weight : weights){
+      sum += weight * pesel % 10;
+      pesel /= 10;
+    }
+    auto modulo = sum % 10;
+
+    return modulo == 0 && check_digit_ == 0 || check_digit_ == 10 - modulo;
 }
 
 std::string Pesel::get_string() const {
@@ -112,6 +101,7 @@ std::string Pesel::get_string() const {
 
 bool Pesel::is_valid() {
   if (validation_check_digit() || validation_date()) {
+    // Both function return 0 on success
     return false;
   }
   return true;
