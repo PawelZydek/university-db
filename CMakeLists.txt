@@ -38,8 +38,8 @@ endif()
 project(university-db)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp)
+add_executable(${PROJECT_NAME} main.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp Menu.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp Menu.cpp)
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 

@@ -2,13 +2,16 @@
 #define MENU_HPP
 
 #include "StudentBase.hpp"
+#include <string_view>
+#include <map>
+#include <functional>
 
 class Menu{
 public:
     Menu() = default;
 
     void add_student();
-    void display_list();
+    void display_list() const;
 
     void sort_by_pesel();
     void sort_by_surname();
@@ -16,12 +19,13 @@ public:
     void erase_by_id();
 
     void read_from_file();
-    void write_to_file();
+    void write_to_file() const;
+
+    void search_by_pesel() const;
+    void search_by_surname() const;
+
     void select_menu();
-
-    void search_by_pesel();
-    void search_by_surname();
-
+    void run();
 private:
     StudentBase base_{};
 };
