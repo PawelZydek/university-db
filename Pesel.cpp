@@ -1,8 +1,8 @@
 #include "Pesel.hpp"
+#include <array>
 #include <cmath>
 #include <iomanip>
 #include <sstream>
-#include <array>
 
 Pesel::Pesel(uint32_t birth, uint16_t serial, uint8_t check_digit)
     : date_of_birth_{birth}, serial_number_{serial}, check_digit_{check_digit} {
@@ -70,18 +70,19 @@ bool Pesel::validation_date() {
 }
 
 bool Pesel::validation_check_digit() {
-    static constexpr std::array<uint8_t, 11> weights 
-    {0, 3, 1, 9, 7, 3, 1, 9, 7, 3, 1};
-    uint64_t pesel= 100'000 * date_of_birth_ + 10 * serial_number_ + check_digit_;
-    uint8_t sum = 0;
-    uint8_t i = 0;
-    for(uint8_t weight : weights){
-      sum += weight * pesel % 10;
-      pesel /= 10;
-    }
-    auto modulo = sum % 10;
+  static constexpr std::array<uint8_t, 11> weights{0, 3, 1, 9, 7, 3,
+                                                   1, 9, 7, 3, 1};
+  uint64_t pesel =
+      100'000 * date_of_birth_ + 10 * serial_number_ + check_digit_;
+  uint8_t sum = 0;
+  uint8_t i = 0;
+  for (uint8_t weight : weights) {
+    sum += weight * pesel % 10;
+    pesel /= 10;
+  }
+  auto modulo = sum % 10;
 
-    return modulo == 0 && check_digit_ == 0 || check_digit_ == 10 - modulo;
+  return modulo == 0 && check_digit_ == 0 || check_digit_ == 10 - modulo;
 }
 
 std::string Pesel::get_string() const {
@@ -138,9 +139,8 @@ bool operator<(const Pesel &pesel1, const Pesel &pesel2) {
   return pesel1.check_digit_ < pesel2.check_digit_;
 }
 
-bool operator== (const Pesel& pesel1, const Pesel& pesel2)
-{
-  return pesel1.date_of_birth_ == pesel2.date_of_birth_
-      && pesel1.serial_number_ == pesel2.serial_number_
-      && pesel1.check_digit_ == pesel2.check_digit_;
+bool operator==(const Pesel &pesel1, const Pesel &pesel2) {
+  return pesel1.date_of_birth_ == pesel2.date_of_birth_ &&
+         pesel1.serial_number_ == pesel2.serial_number_ &&
+         pesel1.check_digit_ == pesel2.check_digit_;
 }

@@ -1,7 +1,7 @@
 #include "StudentBase.hpp"
 #include <algorithm>
-#include <functional>
 #include <fstream>
+#include <functional>
 
 // Add student implementation
 void StudentBase::add_student(const Student &student) {
@@ -40,26 +40,21 @@ void StudentBase::erase_by_id(unsigned int idNum) {
                            " is not registered"};
 }
 
-void StudentBase::write_to_file(const std::string& path)
-{
-  std::ofstream stream{ path };
+void StudentBase::write_to_file(const std::string &path) {
+  std::ofstream stream{path};
 
-  for(const auto &student : student_list_)
-  {
+  for (const auto &student : student_list_) {
     stream << student << '\n';
   }
 }
 
-void StudentBase::read_from_file(const std::string& path)
-{
-  std::ifstream stream{ path };
-  if(!stream)
-  {
+void StudentBase::read_from_file(const std::string &path) {
+  std::ifstream stream{path};
+  if (!stream) {
     throw std::runtime_error{"File named" + path + " does not exist"};
   }
 
-  for(Student st{}; stream >> st; )
-  {
+  for (Student st{}; stream >> st;) {
     add_student(st);
   }
 }

@@ -1,15 +1,12 @@
 #include "Student.hpp"
+#include <algorithm>
 #include <array>
 #include <utility>
-#include <algorithm>
 
-std::string parseToChar(std::istream& in, char delim)
-{
+std::string parseToChar(std::istream &in, char delim) {
   std::string str{};
-  for(char ch{}; in >> ch; )
-  {
-    if(ch == delim)
-    {
+  for (char ch{}; in >> ch;) {
+    if (ch == delim) {
       in.putback(ch);
       break;
     }
@@ -31,22 +28,19 @@ std::ostream &operator<<(std::ostream &out, const Student &student) {
              << student.get_pesel().get_string() << ',' << student.get_gender();
 }
 
-std::istream& operator>> (std::istream& in, Student& student)
-{
-  static constexpr char delim { ',' }; // CSV format
+std::istream &operator>>(std::istream &in, Student &student) {
+  static constexpr char delim{','}; // CSV format
   std::array<char, 5> sep{};
   student.name_ = parseToChar(in, delim);
   in >> sep[0];
   student.surname_ = parseToChar(in, delim);
   in >> sep[1];
   student.address_ = parseToChar(in, delim);
-  in >> sep[2] >> student.id_number_ >> sep[3]
-    >> student.pesel_ >> sep[4] >> student.gender_;
-  
-  for(char ch : sep)
-  {
-    if(ch != delim)
-    {
+  in >> sep[2] >> student.id_number_ >> sep[3] >> student.pesel_ >> sep[4] >>
+      student.gender_;
+
+  for (char ch : sep) {
+    if (ch != delim) {
       in.clear(std::ios_base::failbit);
     }
   }

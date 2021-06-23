@@ -39,7 +39,7 @@ public:
 
   void set_pesel(Pesel &);
 
-  friend std::istream& operator>> (std::istream& in, Student& student);
+  friend std::istream &operator>>(std::istream &in, Student &student);
 
 private:
   std::string name_{};

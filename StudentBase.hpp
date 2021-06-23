@@ -18,8 +18,8 @@ public:
 
   void erase_by_id(unsigned int);
 
-  void write_to_file(const std::string&);
-  void read_from_file(const std::string&);
+  void write_to_file(const std::string &);
+  void read_from_file(const std::string &);
 
 private:
   std::forward_list<Student> student_list_;

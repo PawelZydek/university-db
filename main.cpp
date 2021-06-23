@@ -1,34 +1,18 @@
 ﻿#include "Student.hpp"
 #include "StudentBase.hpp"
-#include <iostream>
 #include <chrono>
 #include <iomanip>
+#include <iostream>
 
-int main()
-{
-	Student studentFirst{ "Tom", "Kowalski", "Krakow", 23456, Pesel{771002, 2851, 5}, Gender::male };
-	Student studentSecond{ "Mateusz", "Borek", "Debica", 12345, Pesel{111111, 1111, 1}, Gender::male };
-	Student studentThird{ "Krzysztof", "Stanowski", "NieWiem", 23456, Pesel{222222, 1111, 1}, Gender::male };
-	StudentBase base{};
+int main() {
+  StudentBase base{};
+  try {
+    base.read_from_file("Test.csv");
+  } catch (const std::exception &e) {
+    std::cerr << e.what() << '\n';
+  }
 
-	base.add_student(studentSecond);
-	base.add_student(studentFirst);
-	base.add_student(studentThird);
+  base.display_list();
 
-	base.display_list();
-
-	base.write_to_file("Students.csv");
-	try
-	{
-		base.read_from_file("Students.csv");
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-
-	base.display_list();
-
-
-	return 0;
+  return 0;
 }
