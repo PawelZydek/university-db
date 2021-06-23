@@ -71,3 +71,17 @@ std::optional<Student> StudentBase::search_by_pesel(const Pesel& pesel) const
   }
   return value;
 }
+
+std::optional<Student> StudentBase::search_by_surname(const std::string& surname) const
+{
+  std::optional<Student> value{};
+
+  auto it = std::find_if(student_list_.cbegin(), student_list_.cend(), [&surname](const auto& student)
+  { return student.get_surname() == surname; });
+  
+  if(it != student_list_.cend())
+  {
+    value = *it;
+  }
+  return value;
+}
