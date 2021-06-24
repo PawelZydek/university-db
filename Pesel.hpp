@@ -3,10 +3,10 @@
 
 #include "Gender.hpp"
 
+#include <array>
 #include <cstdint>
 #include <iostream>
 #include <string>
-#include <array>
 
 /**
  *A structure that stores a PESEL number (Universal Electronic System for
@@ -15,7 +15,7 @@
  */
 class Pesel {
 public:
-  Pesel(const std::array<uint8_t, 11>&);
+  Pesel(const std::array<uint8_t, 11> &);
 
   Pesel() = default;
 

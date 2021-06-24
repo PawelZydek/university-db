@@ -160,7 +160,7 @@ void Menu::select_menu() {
 void Menu::run() {
   while (true) {
     select_menu();
-    std::cout << "Do you want to proceed? ";
+    std::cout << "Do you want to proceed[Y/n]? ";
     char choice{};
     std::cin >> choice;
     if (choice == 'n' || choice == 'N') {
