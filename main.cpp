@@ -1,9 +1,9 @@
 ﻿#include "Menu.hpp"
 
 int main() {
-  Menu menu{};
+    Menu menu{};
 
-  menu.run();
+    menu.run();
 
-  return 0;
+    return 0;
 }
