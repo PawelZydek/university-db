@@ -41,7 +41,7 @@ enable_testing()
 add_executable(${PROJECT_NAME} main.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp Menu.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp Student.cpp Pesel.cpp StudentBase.cpp Gender.cpp Menu.cpp)
 
-add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
+target_compile_options(${PROJECT_NAME} PUBLIC -g -O0 -Wall -Wextra -Wconversion -Wpedantic -Werror)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
