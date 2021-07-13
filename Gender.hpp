@@ -4,18 +4,18 @@
 #include <iostream>
 
 enum class Gender {
-  agender,
-  androgynous,
-  female,
-  genderfluid,
-  intersex,
-  male,
-  nonbinary,
-  other,
-  maxGender,
+    agender,
+    androgynous,
+    female,
+    genderfluid,
+    intersex,
+    male,
+    nonbinary,
+    other,
+    maxGender,
 };
 
-std::ostream &operator<<(std::ostream &, const Gender);
-std::istream &operator>>(std::istream &in, Gender &);
+std::ostream& operator<<(std::ostream&, const Gender);
+std::istream& operator>>(std::istream& in, Gender&);
 
 #endif /* GENDER_HPP */
