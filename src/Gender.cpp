@@ -12,13 +12,24 @@ static constexpr std::array<std::string_view, 8> genderStringLiterals{
 std::ostream& operator<<(std::ostream& out, const Gender gender) {
     // Bounds check
     if (static_cast<size_t>(gender) >= genderStringLiterals.size() ||
-        static_cast<size_t>(gender) < 0) {
-        //
+        static_cast<size_t>(gender) < 0) {   
         out.clear(std::ios_base::failbit);
         return out;
     }
 
     return out << genderStringLiterals[static_cast<size_t>(gender)];
+}
+
+Gender string_to_gender(std::string_view str)
+{
+    auto it = std::ranges::find(genderStringLiterals, str);
+    auto distance = std::distance(genderStringLiterals.cbegin(), it);
+
+    if (it == genderStringLiterals.cend() ||
+        distance >= static_cast<int>(Gender::maxGender)) {
+        return Gender::other;
+    }
+    return static_cast<Gender>(distance);
 }
 
 std::istream& operator>>(std::istream& in, Gender& gender) {
@@ -27,9 +38,8 @@ std::istream& operator>>(std::istream& in, Gender& gender) {
         if (isalpha(ch)) {
             ch = tolower(ch);
             str.push_back(ch);
-            if (std::find(genderStringLiterals.cbegin(),
-                          genderStringLiterals.cend(),
-                          str) != genderStringLiterals.cend()) {
+            if (std::ranges::find(genderStringLiterals, str)
+                 != genderStringLiterals.cend()) {
                 break;
             }
         } else {
@@ -37,14 +47,7 @@ std::istream& operator>>(std::istream& in, Gender& gender) {
             break;
         }
     }
-    auto it = std::find(genderStringLiterals.cbegin(),
-                        genderStringLiterals.cend(), str);
-    auto distance = std::distance(genderStringLiterals.cbegin(), it);
-    if (it == genderStringLiterals.cend() ||
-        distance >= static_cast<int>(Gender::maxGender)) {
-        in.clear(std::ios_base::failbit);
-        return in;
-    }
-    gender = static_cast<Gender>(distance);
+
+    gender = string_to_gender(str);
     return in;
 }
