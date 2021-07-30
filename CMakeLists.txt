@@ -11,6 +11,9 @@ target_compile_options (${PROJECT_NAME} PRIVATE ${FLAGS})
 
 # TEST EXECUTABLES
 add_executable (${PROJECT_NAME}-gender-ut test-gender.cpp ${SRC})
+target_include_directories(${PROJECT_NAME}-gender-ut PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+)
 
 enable_testing ()
 add_test (NAME gender-tests COMMAND ${PROJECT_NAME}-gender-ut)
