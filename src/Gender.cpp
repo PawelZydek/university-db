@@ -10,11 +10,14 @@ static constexpr std::array<std::string_view, 8> genderStringLiterals{
     "intersex"sv, "male"sv,        "nonbinary"sv, "other"sv};
 
 std::ostream& operator<<(std::ostream& out, const Gender gender) {
-    if (static_cast<int>(gender) >= genderStringLiterals.size() ||
-        static_cast<int>(gender) < 0) {
+    // Bounds check
+    if (static_cast<size_t>(gender) >= genderStringLiterals.size() ||
+        static_cast<size_t>(gender) < 0) {
+        //
         out.clear(std::ios_base::failbit);
         return out;
     }
+
     return out << genderStringLiterals[static_cast<size_t>(gender)];
 }
 

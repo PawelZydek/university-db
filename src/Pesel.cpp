@@ -58,7 +58,7 @@ int Pesel::get_year() const {
 }
 
 bool isLeap(int year) {
-    if (year % 400 == 0 || year % 4 == 0 && year % 100 != 0) {
+    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
         return true;
     }
     return false;
@@ -106,7 +106,7 @@ bool Pesel::validation_check_digit() const {
         sum += pesel_.at(i) * weights[i];
     }
     auto modulo = sum % 10;
-    return modulo == 0 && pesel_.at(10) == 0 || 10 - modulo == pesel_.at(10);
+    return (modulo == 0 && pesel_.at(10) == 0) || 10 - modulo == pesel_.at(10);
 }
 
 std::string Pesel::get_string() const {
