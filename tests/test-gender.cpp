@@ -16,8 +16,7 @@ SCENARIO("Should parse the gender from a stream", "[gender][stream]")
             pair_type{ "intersex", Gender::intersex },
             pair_type{ "male", Gender::male },
             pair_type{ "nonbinary", Gender::nonbinary },
-            pair_type{ "other", Gender::other },
-            pair_type{ "SomeGarbage", Gender::other }
+            pair_type{ "other", Gender::other }
         );
         std::stringstream stream{ string };
 
@@ -25,10 +24,10 @@ SCENARIO("Should parse the gender from a stream", "[gender][stream]")
         {
             Gender gend{};
             stream >> gend;
-            
+ 
             THEN("It should be the corresponding enum value")
             {
-                REQUIRE(gender == gend);
+                REQUIRE(gend == gender);
             }
         }
     }
