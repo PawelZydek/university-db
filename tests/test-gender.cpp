@@ -15,7 +15,8 @@ SCENARIO("Should parse the gender from a stream", "[gender][stream]") {
                      pair_type{"intersex", Gender::intersex},
                      pair_type{"male", Gender::male},
                      pair_type{"nonbinary", Gender::nonbinary},
-                     pair_type{"other", Gender::other});
+                     pair_type{"other", Gender::other},
+                     pair_type{"SomeGarbage", Gender::other});
         std::stringstream stream{string};
 
         WHEN("Gender is obtained from the stream") {

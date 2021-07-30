@@ -9,7 +9,9 @@ static constexpr int peselLen{11};
 
 Pesel::Pesel(const std::array<uint8_t, 11>& numbers) : pesel_(numbers) {}
 
-int Pesel::get_day() const { return pesel_.at(4) * 10 + pesel_.at(5); }
+int Pesel::get_day() const {
+    return pesel_.at(4) * 10 + pesel_.at(5);
+}
 
 int Pesel::get_month() const {
     int monthNum{pesel_.at(2) * 10 + pesel_.at(3)};
