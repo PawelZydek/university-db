@@ -1,6 +1,8 @@
 #include "Pesel.hpp"
 #include "catch_amalgamated.hpp"
 
+#include <tuple>
+#include <utility>
 
 // VALIDATION TESTS
 SCENARIO("Should check Pesel's validity", "[pesel][valid]") {
@@ -38,8 +40,7 @@ SCENARIO("Should check Pesel's validity", "[pesel][invalid][date]") {
         auto pesel = GENERATE(Pesel{{0, 2, 3, 9, 3, 0, 4, 6, 2, 3, 6}},
                               Pesel{{8, 6, 5, 9, 2, 7, 1, 6, 1, 6, 5}},
                               Pesel{{0, 2, 2, 2, 3, 2, 5, 1, 6, 2, 0}},
-                              Pesel{{8, 7, 0, 4, 4, 2, 8, 1, 4, 6, 0}}
-        );
+                              Pesel{{8, 7, 0, 4, 4, 2, 8, 1, 4, 6, 0}});
 
         WHEN("It's validity is checked") {
             THEN("It should return false") { REQUIRE_FALSE(pesel.is_valid()); }
@@ -47,16 +48,41 @@ SCENARIO("Should check Pesel's validity", "[pesel][invalid][date]") {
     }
 }
 
-SCENARIO("Should check Pesel's validity", "[pesel][invalid][digits]")
-{
+SCENARIO("Should check Pesel's validity", "[pesel][invalid][digits]") {
     GIVEN("An invalid Pesel") {
         // Both have valid check_digits, but contain a non-digit number
         auto pesel = GENERATE(Pesel{{0, 2, 2, 3, 3, 0, 4, 6, 14, 3, 5}},
-                              Pesel{{8, 6, 1, 0, 2, 7, 1, 6, 17, 6, 8}}
-        );
+                              Pesel{{8, 6, 1, 0, 2, 7, 1, 6, 17, 6, 8}});
 
         WHEN("It's validity is checked") {
             THEN("It should return false") { REQUIRE_FALSE(pesel.is_valid()); }
+        }
+    }
+}
+
+// Date tests
+SCENARIO("Should check Pesel's date", "[pesel][date]") {
+    GIVEN("A Pesel") {
+        using tuple_type = std::tuple<int, int, int>;
+        using pair_type = std::pair<Pesel, tuple_type>;
+        auto [pesel, date] =
+            GENERATE(pair_type{Pesel{{7, 2, 0, 2, 2, 9, 6, 7, 6, 8, 5}},
+                               tuple_type{29, 2, 1972}},
+                     pair_type{Pesel{{0, 0, 0, 8, 1, 4, 6, 7, 8, 3, 3}},
+                               tuple_type{14, 8, 1900}},
+                     pair_type{Pesel{{0, 0, 4, 6, 2, 6, 7, 5, 5, 4, 7}},
+                               tuple_type{26, 6, 2100}},
+                     pair_type{Pesel{{1, 2, 3, 0, 1, 7, 7, 2, 1, 6, 4}},
+                               tuple_type{17, 10, 2012}});
+
+        auto [day, month, year] = date;
+
+        WHEN("It's date is checked") {
+            THEN("It should be correct") {
+                REQUIRE(pesel.get_day() == day);
+                REQUIRE(pesel.get_month() == month);
+                REQUIRE(pesel.get_year() == year);
+            }
         }
     }
 }
