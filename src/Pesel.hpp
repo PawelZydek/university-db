@@ -15,8 +15,9 @@
  */
 class Pesel {
    public:
+    // Copy constructor
     Pesel(const std::array<uint8_t, 11>&);
-
+    // Default constructor
     Pesel() = default;
 
     /**
@@ -38,7 +39,8 @@ class Pesel {
      */
     bool is_valid() const;
 
-    [[nodiscard]] std::string get_string() const;
+    // Returns the pesel as a string
+    std::string get_string() const;
 
     friend std::istream& operator>>(std::istream&, Pesel&);
     friend bool operator<(const Pesel& pesel1, const Pesel& pesel2);
