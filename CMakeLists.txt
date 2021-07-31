@@ -18,5 +18,10 @@ target_include_directories(${PROJECT_NAME}-gender-ut PUBLIC
     src
 )
 
+add_executable (${PROJECT_NAME}-pesel-ut tests/test-pesel.cpp ${SRC} tests/catch_amalgamated.cpp)
+target_include_directories(${PROJECT_NAME}-pesel-ut PUBLIC
+    src
+)
+
 enable_testing ()
 add_test (NAME gender-tests COMMAND ${PROJECT_NAME}-gender-ut)
