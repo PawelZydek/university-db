@@ -1,34 +1,39 @@
 #include "Gender.hpp"
-
+#include <ctype.h>
 #include <algorithm>
 #include <array>
 #include <string_view>
+#include <utility>
 
 using namespace std::string_view_literals;
-static constexpr std::array<std::string_view, 8> genderStringLiterals{
-    "agender"sv,  "androgynous"sv, "female"sv,    "genderfluid"sv,
-    "intersex"sv, "male"sv,        "nonbinary"sv, "other"sv};
+using pair_type = std::pair<std::string_view, Gender>;
+static constexpr std::array<pair_type, 8> genderStringPairs{
+    pair_type{"agender"sv, Gender::agender},
+    pair_type{"androgynous"sv, Gender::androgynous},
+    pair_type{"female"sv, Gender::female},
+    pair_type{"genderfluid"sv, Gender::genderfluid},
+    pair_type{"intersex"sv, Gender::intersex},
+    pair_type{"male"sv, Gender::male},
+    pair_type{"nonbinary"sv, Gender::nonbinary},
+    pair_type{"other"sv, Gender::other}};
 
 std::ostream& operator<<(std::ostream& out, const Gender gender) {
-    // Bounds check
-    if (static_cast<size_t>(gender) >= genderStringLiterals.size() ||
-        static_cast<size_t>(gender) < 0) {
-        out.clear(std::ios_base::failbit);
-        return out;
-    }
+    auto it = std::ranges::find_if(
+        genderStringPairs,
+        [gender](const auto& pair) { return gender == pair.second; });
 
-    return out << genderStringLiterals[static_cast<size_t>(gender)];
+    if (it != genderStringPairs.cend()) {
+        return out << it->first;
+    }
+    return out << "undefined";
 }
 
 Gender string_to_gender(std::string_view str) {
-    auto it = std::ranges::find(genderStringLiterals, str);
-    auto distance = std::distance(genderStringLiterals.cbegin(), it);
+    auto it = std::ranges::find_if(genderStringPairs, [str](const auto& pair) {
+        return str == pair.first;
+    });
 
-    if (it == genderStringLiterals.cend() ||
-        distance >= static_cast<int>(Gender::maxGender)) {
-        return Gender::other;
-    }
-    return static_cast<Gender>(distance);
+    return (it != genderStringPairs.cend()) ? it->second : Gender::other;
 }
 
 std::istream& operator>>(std::istream& in, Gender& gender) {
@@ -37,8 +42,10 @@ std::istream& operator>>(std::istream& in, Gender& gender) {
         if (isalpha(ch)) {
             ch = tolower(ch);
             str.push_back(ch);
-            if (std::ranges::find(genderStringLiterals, str) !=
-                genderStringLiterals.cend()) {
+            if (std::ranges::find_if(genderStringPairs,
+                                     [&str](const auto& pair) {
+                                         return str == pair.first;
+                                     }) != genderStringPairs.cend()) {
                 break;
             }
         } else {
