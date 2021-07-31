@@ -3,7 +3,7 @@
 #include <array>
 #include <cmath>
 #include <iomanip>
-#include <sstream>
+#include <algorithm>
 
 static constexpr int peselLen{11};
 
@@ -111,6 +111,11 @@ bool Pesel::validation_check_digit() const {
     return (modulo == 0 && pesel_.at(10) == 0) || 10 - modulo == pesel_.at(10);
 }
 
+bool Pesel::validation_numbers() const {
+    return std::ranges::none_of(pesel_, [](const auto num)
+    { return num < 10; });
+}
+
 std::string Pesel::get_string() const {
     std::string str{};
     str.reserve(11);
@@ -121,7 +126,7 @@ std::string Pesel::get_string() const {
 }
 
 bool Pesel::is_valid() const {
-    if (validation_check_digit() && validation_date()) {
+    if (validation_check_digit() && validation_date() && validation_numbers()) {
         // Both function return true on success
         return true;
     }

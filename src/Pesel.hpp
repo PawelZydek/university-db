@@ -48,12 +48,14 @@ class Pesel {
 
    private:
     /**
-     * Array holding pesel numbers
+     * Array holding pesel digits
      */
     std::array<uint8_t, 11> pesel_;
 
     // Validation functions
     bool validation_date() const;
     bool validation_check_digit() const;
+    // Checks if the numbers are digits (smaller than 10)
+    bool validation_numbers() const;
 };
 #endif /* PESEL_HPP */
