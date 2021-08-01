@@ -3,10 +3,10 @@
 #include "catch_amalgamated.hpp"
 #include <assert.h>
 
-SCENARIO("Should output Person to a stream", "[person][stream][output]") {
+SCENARIO("Should output the Person to a stream", "[person][stream][output]") {
     GIVEN("A Person object") {
         Person person{};
-        std::stringstream stream{"Jan,Kowalski,Warszawa,70080837171,male"};
+        std::string str{"Jan,Kowalski,Warszawa,70080837171,male"};
         try {
             person =
                 Person{"Jan", "Kowalski", "Warszawa",
@@ -19,7 +19,7 @@ SCENARIO("Should output Person to a stream", "[person][stream][output]") {
             std::stringstream outputStream{};
             outputStream << person;
             THEN("It should be in CSV format") {
-                REQUIRE(outputStream.str() == stream.str());
+                REQUIRE(outputStream.str() == str);
             }
         }
     }

@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <utility>
+#include <sstream>
 
 // VALIDATION TESTS
 SCENARIO("Should check Pesel's validity (valid)", "[pesel][valid]") {
@@ -82,6 +83,26 @@ SCENARIO("Should check Pesel's date", "[pesel][date]") {
                 REQUIRE(pesel.get_day() == day);
                 REQUIRE(pesel.get_month() == month);
                 REQUIRE(pesel.get_year() == year);
+            }
+        }
+    }
+}
+
+SCENARIO("Should output the Pesel to a stream", "[pesel][output][stream]")
+{
+    GIVEN("A Pesel")
+    {
+        Pesel pesel{{7,4,0,2,1,9,4,6,2,2,5}};
+        std::string str{"74021946225"};
+
+        WHEN("It's output to a stream")
+        {
+            std::stringstream stream{};
+            stream << pesel;
+
+            THEN("It should be correct")
+            {
+                REQUIRE(stream.str() == str);
             }
         }
     }
