@@ -113,7 +113,7 @@ bool Pesel::validation_check_digit() const {
 
 bool Pesel::validation_numbers() const {
     return std::ranges::none_of(pesel_,
-                                [](const auto num) { return num < 10; });
+                                [](const auto num) { return num >= 10; });
 }
 
 std::string Pesel::get_string() const {
