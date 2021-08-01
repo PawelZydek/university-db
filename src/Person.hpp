@@ -1,6 +1,7 @@
 #ifndef PERSON_HPP
 #define PERSON_HPP
 
+#include <iostream>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -39,6 +40,8 @@ class Person {
     void set_pesel(Pesel&& pesel);
     void set_pesel(const Pesel& pesel);
     void set_gender(Gender gender) { gender_ = gender; }
+
+    friend std::ostream& operator<<(std::ostream&, const Person&);
 
    private:
     std::string name_{};

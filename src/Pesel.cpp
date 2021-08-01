@@ -148,6 +148,10 @@ std::istream& operator>>(std::istream& in, Pesel& pesel) {
     return in;
 }
 
+std::ostream& operator<<(std::ostream& out, const Pesel& pesel) {
+    return out << pesel.get_string();
+}
+
 bool operator<(const Pesel& pesel1, const Pesel& pesel2) {
     for (size_t i{0}; i < peselLen; ++i) {
         if (pesel1.pesel_.at(i) > pesel2.pesel_.at(i)) {
