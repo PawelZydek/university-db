@@ -1,9 +1,9 @@
 #include "Pesel.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <iomanip>
-#include <algorithm>
 
 static constexpr int peselLen{11};
 
@@ -112,8 +112,8 @@ bool Pesel::validation_check_digit() const {
 }
 
 bool Pesel::validation_numbers() const {
-    return std::ranges::none_of(pesel_, [](const auto num)
-    { return num < 10; });
+    return std::ranges::none_of(pesel_,
+                                [](const auto num) { return num < 10; });
 }
 
 std::string Pesel::get_string() const {
