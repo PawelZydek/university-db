@@ -2,10 +2,10 @@
 Homework for the Coders-School online course
 
 ## Work in progress
-:heavy_check_mark: Refactor Gender enum + functions </br>
-:heavy_check_mark: Write unit tests for Gender enum
-- [ ] Refactor Pesel class </br>
-:heavy_check_mark: Write unit tests for Pesel class
+- :heavy_check_mark: Refactor Gender enum + functions
+- :heavy_check_mark: Write unit tests for Gender enum
+- [ ] Refactor Pesel class
+- :heavy_check_mark: Write unit tests for Pesel class
 - [ ] Create Person base class
 - [ ] Write unit tests for Person class
 - [ ] Create Student class derived from Person
