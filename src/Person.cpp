@@ -49,5 +49,6 @@ void Person::set_pesel(const Pesel& pesel) {
 
 std::ostream& operator<<(std::ostream& out, const Person& person) {
     return out << person.name_ << ',' << person.surname_ << ','
-               << person.address_ << ',' << person.gender_;
+               << person.address_ << ',' << person.pesel_ << ','
+               << person.gender_;
 }

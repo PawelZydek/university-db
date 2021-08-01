@@ -17,6 +17,7 @@ class Person {
     Person(std::string&&, std::string&&, std::string&&, Pesel&&, Gender);
     Person(const Person& person) = default;
     Person(Person&& person) = default;
+    Person() = default;
 
     Person& operator=(const Person& person) = default;
     Person& operator=(Person&& person) = default;
