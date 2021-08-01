@@ -30,14 +30,14 @@ class Person {
     [[nodiscard]] Gender get_gender() const { return gender_; }
 
     // Setters
-    void set_name(std::string&& name) { name_ = name; }
+    void set_name(std::string&& name) { name_ = std::move(name); }
     void set_name(const std::string& name) { name_ = name; }
-    void set_surname(std::string&& surname) { surname_ = surname; }
+    void set_surname(std::string&& surname) { surname_ = std::move(surname); }
     void set_surname(const std::string& surname) { surname_ = surname; }
-    void set_address(std::string&& address) { address_ = address; }
+    void set_address(std::string&& address) { address_ = std::move(address); }
     void set_address(const std::string& address) { address_ = address; }
-    void set_pesel(Pesel&& pesel) { pesel_ = pesel; }
-    void set_pesel(const Pesel& pesel) { pesel_ = pesel; }
+    void set_pesel(Pesel&& pesel);
+    void set_pesel(const Pesel& pesel);
     void set_gender(Gender gender) { gender_ = gender; }
 
    private:

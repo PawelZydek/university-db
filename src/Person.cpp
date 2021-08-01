@@ -31,3 +31,18 @@ Person::Person(std::string&& name,
 }
 
 Person::~Person() {}
+
+// Setters
+void Person::set_pesel(Pesel&& pesel) {
+    if (!pesel.is_valid()) {
+        throw std::runtime_error{"not a valid pesel"};
+    }
+    pesel_ = std::move(pesel);
+}
+
+void Person::set_pesel(const Pesel& pesel) {
+    if (!pesel.is_valid()) {
+        throw std::runtime_error{"not a valid pesel"};
+    }
+    pesel_ = pesel;
+}
