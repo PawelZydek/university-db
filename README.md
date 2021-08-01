@@ -6,7 +6,8 @@ Homework for the Coders-School online course
 - :heavy_check_mark: Write unit tests for Gender enum
 - :heavy_check_mark: Refactor Pesel class
 - :heavy_check_mark: Write unit tests for Pesel class
-- [ ] Create Person base class
+- :heavy_check_mark: Create Person base class
+- :heavy_check_mark: Write unit tests for Person class
 - [ ] Create Student class derived from Person
 - [ ] Create Employee class derived from Person
 - [ ] Create UniversityBase class
