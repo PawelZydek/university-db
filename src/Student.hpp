@@ -19,6 +19,9 @@ class Student : public Person {
             Gender,
             unsigned int);
 
+    Student(const Person&, unsigned int);
+    Student(Person&&, unsigned int);
+
     Student(const Student& student) = default;
     Student(Student&& student) = default;
 

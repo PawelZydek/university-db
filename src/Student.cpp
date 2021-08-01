@@ -17,3 +17,13 @@ Student::Student(std::string&& name,
     : Person{std::move(name), std::move(surname), std::move(address),
              std::move(pesel), gender},
       index_num_{index_num} {}
+
+Student::Student(const Person& person, unsigned int index_num)
+    : Person{person}, index_num_{index_num}
+    {
+    }
+
+Student::Student(Person&& person, unsigned int index_num)
+    : Person{std::move(person)}, index_num_{index_num}
+    {
+    }

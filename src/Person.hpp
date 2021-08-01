@@ -9,6 +9,9 @@
 
 class Person {
    public:
+    static constexpr char formatDelimiter{','};
+
+   public:
     Person(const std::string&,
            const std::string&,
            const std::string&,
@@ -47,7 +50,7 @@ class Person {
 
     friend bool operator==(const Person&, const Person&);
 
-   private:
+   protected:
     std::string name_{};
     std::string surname_{};
     std::string address_{};

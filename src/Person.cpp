@@ -60,22 +60,24 @@ void Person::set_pesel(const Pesel& pesel) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Person& person) {
-    return out << person.name_ << ',' << person.surname_ << ','
-               << person.address_ << ',' << person.pesel_ << ','
-               << person.gender_;
+    return out << person.name_ << Person::formatDelimiter << person.surname_
+               << Person::formatDelimiter << person.address_
+               << Person::formatDelimiter << person.pesel_
+               << Person::formatDelimiter << person.gender_;
 }
 
 std::istream& operator>>(std::istream& in, Person& person) {
-    static constexpr char delim{','};
     char delim1{}, delim2{}, delim3{}, delim4{};
-    person.name_ = get_string_to_char(in, delim);
+    person.name_ = get_string_to_char(in, Person::formatDelimiter);
     in >> delim1;
-    person.surname_ = get_string_to_char(in, delim);
+    person.surname_ = get_string_to_char(in, Person::formatDelimiter);
     in >> delim2;
-    person.address_ = get_string_to_char(in, delim);
+    person.address_ = get_string_to_char(in, Person::formatDelimiter);
     in >> delim3 >> person.pesel_ >> delim4 >> person.gender_;
-    if (delim1 != delim || delim2 != delim || delim3 != delim ||
-        delim4 != delim || !person.pesel_.is_valid()) {
+    if (delim1 != Person::formatDelimiter ||
+        delim2 != Person::formatDelimiter ||
+        delim3 != Person::formatDelimiter ||
+        delim4 != Person::formatDelimiter || !person.pesel_.is_valid()) {
         in.clear(std::ios_base::failbit);
     }
     return in;
