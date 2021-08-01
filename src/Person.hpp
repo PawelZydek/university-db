@@ -43,6 +43,9 @@ class Person {
     void set_gender(Gender gender) { gender_ = gender; }
 
     friend std::ostream& operator<<(std::ostream&, const Person&);
+    friend std::istream& operator>>(std::istream&, Person&);
+
+    friend bool operator==(const Person&, const Person&);
 
    private:
     std::string name_{};
@@ -51,5 +54,7 @@ class Person {
     Pesel pesel_{};
     Gender gender_{};
 };
+
+std::string get_string_to_char(std::istream&, char);
 
 #endif /* PERSON_HPP */

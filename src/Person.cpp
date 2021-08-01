@@ -1,5 +1,17 @@
 #include "Person.hpp"
 
+std::string get_string_to_char(std::istream& in, char delimiter) {
+    std::string temp{};
+    for (char current_char{}; in >> current_char;) {
+        if (current_char == delimiter) {
+            in.putback(current_char);
+            break;
+        }
+        temp.push_back(current_char);
+    }
+    return temp;
+}
+
 Person::Person(const std::string& name,
                const std::string& surname,
                const std::string& address,
@@ -51,4 +63,28 @@ std::ostream& operator<<(std::ostream& out, const Person& person) {
     return out << person.name_ << ',' << person.surname_ << ','
                << person.address_ << ',' << person.pesel_ << ','
                << person.gender_;
+}
+
+std::istream& operator>>(std::istream& in, Person& person) {
+    static constexpr char delim{','};
+    char delim1{}, delim2{}, delim3{}, delim4{};
+    person.name_ = get_string_to_char(in, delim);
+    in >> delim1;
+    person.surname_ = get_string_to_char(in, delim);
+    in >> delim2;
+    person.address_ = get_string_to_char(in, delim);
+    in >> delim3 >> person.pesel_ >> delim4 >> person.gender_;
+    if (delim1 != delim || delim2 != delim || delim3 != delim ||
+        delim4 != delim || !person.pesel_.is_valid()) {
+        in.clear(std::ios_base::failbit);
+    }
+    return in;
+}
+
+bool operator==(const Person& person1, const Person& person2) {
+    return person1.name_ == person2.name_ &&
+           person1.surname_ == person2.surname_ &&
+           person1.address_ == person2.address_ &&
+           person1.pesel_ == person2.pesel_ &&
+           person1.gender_ == person2.gender_;
 }
