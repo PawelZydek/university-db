@@ -19,11 +19,20 @@ add_executable (${PROJECT_NAME}-gender-ut tests/test-gender.cpp ${SRC} tests/cat
 target_include_directories(${PROJECT_NAME}-gender-ut PUBLIC
     src
 )
+target_compile_options (${PROJECT_NAME}-gender-ut PRIVATE ${FLAGS} -g -O0)
 
 add_executable (${PROJECT_NAME}-pesel-ut tests/test-pesel.cpp ${SRC} tests/catch_amalgamated.cpp)
 target_include_directories(${PROJECT_NAME}-pesel-ut PUBLIC
     src
 )
+target_compile_options (${PROJECT_NAME}-pesel-ut PRIVATE ${FLAGS} -g -O0)
+
+add_executable (${PROJECT_NAME}-person-ut tests/test-person.cpp ${SRC} tests/catch_amalgamated.cpp)
+target_include_directories(${PROJECT_NAME}-person-ut PUBLIC
+    src
+)
+target_compile_options (${PROJECT_NAME}-person-ut PRIVATE ${FLAGS} -g -O0)
 
 enable_testing ()
 add_test (NAME gender-tests COMMAND ${PROJECT_NAME}-gender-ut)
+add_test (NAME pesel-tests COMMAND ${PROJECT_NAME}-pesel-ut)
