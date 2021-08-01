@@ -2,10 +2,10 @@
 Homework for the Coders-School online course
 
 ## Work in progress
-- [ x ] Refactor Gender enum + functions
-- [ x ] Write unit tests for Gender enum
+- [ X ] Refactor Gender enum + functions
+- [ X ] Write unit tests for Gender enum
 - [ ] Refactor Pesel class
-- [ x ] Write unit tests for Pesel class
+- [ X ] Write unit tests for Pesel class
 - [ ] Create Person base class
 - [ ] Write unit tests for Person class
 - [ ] Create Student class derived from Person
