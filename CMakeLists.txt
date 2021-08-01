@@ -5,7 +5,8 @@ set (CMAKE_CXX_STANDARD 20)
 set (SRC 
     src/Gender.cpp 
     src/Pesel.cpp
-    src/Person.cpp)
+    src/Person.cpp
+    src/Student.cpp)
 
 set (FLAGS -Wall -Wextra -Wpedantic -Wno-conversion -Werror)
 
