@@ -34,6 +34,8 @@ class Student : public Person {
     // Setter
     void set_index_num(unsigned int index_num) { index_num_ = index_num; }
 
+    friend std::ostream& operator<<(std::ostream&, const Student&);
+
    private:
     unsigned int index_num_{};
 };

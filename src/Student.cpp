@@ -19,11 +19,15 @@ Student::Student(std::string&& name,
       index_num_{index_num} {}
 
 Student::Student(const Person& person, unsigned int index_num)
-    : Person{person}, index_num_{index_num}
-    {
-    }
+    : Person{person}, index_num_{index_num} {}
 
 Student::Student(Person&& person, unsigned int index_num)
-    : Person{std::move(person)}, index_num_{index_num}
-    {
-    }
+    : Person{std::move(person)}, index_num_{index_num} {}
+
+std::ostream& operator<<(std::ostream& out, const Student& student) {
+    return out << student.name_ << Person::formatDelimiter << student.surname_
+               << Person::formatDelimiter << student.address_
+               << Person::formatDelimiter << student.pesel_
+               << Person::formatDelimiter << student.gender_
+               << Person::formatDelimiter << student.index_num_;
+}
