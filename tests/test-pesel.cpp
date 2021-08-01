@@ -1,9 +1,9 @@
 #include "Pesel.hpp"
 #include "catch_amalgamated.hpp"
 
+#include <sstream>
 #include <tuple>
 #include <utility>
-#include <sstream>
 
 // VALIDATION TESTS
 SCENARIO("Should check Pesel's validity (valid)", "[pesel][valid]") {
@@ -20,7 +20,8 @@ SCENARIO("Should check Pesel's validity (valid)", "[pesel][valid]") {
     }
 }
 
-SCENARIO("Should check Pesel's validity (invalid check_digit)", "[pesel][invalid][check_digit]") {
+SCENARIO("Should check Pesel's validity (invalid check_digit)",
+         "[pesel][invalid][check_digit]") {
     GIVEN("An invalid Pesel") {
         // Invalid check_digit
         auto pesel = GENERATE(Pesel{{0, 2, 2, 3, 3, 0, 4, 6, 2, 3, 3}},
@@ -35,7 +36,8 @@ SCENARIO("Should check Pesel's validity (invalid check_digit)", "[pesel][invalid
     }
 }
 
-SCENARIO("Should check Pesel's validity (invalid date)", "[pesel][invalid][date]") {
+SCENARIO("Should check Pesel's validity (invalid date)",
+         "[pesel][invalid][date]") {
     GIVEN("An invalid Pesel") {
         // All have valid check_digits: 1, 2 - invalid month; 3, 4 - invalid day
         auto pesel = GENERATE(Pesel{{0, 2, 3, 9, 3, 0, 4, 6, 2, 3, 6}},
@@ -49,7 +51,8 @@ SCENARIO("Should check Pesel's validity (invalid date)", "[pesel][invalid][date]
     }
 }
 
-SCENARIO("Should check Pesel's validity (invalid digits)", "[pesel][invalid][digits]") {
+SCENARIO("Should check Pesel's validity (invalid digits)",
+         "[pesel][invalid][digits]") {
     GIVEN("An invalid Pesel") {
         // Both have valid check_digits, but contain a non-digit number
         auto pesel = GENERATE(Pesel{{0, 2, 2, 3, 3, 0, 4, 6, 14, 3, 5}},
@@ -88,22 +91,30 @@ SCENARIO("Should check Pesel's date", "[pesel][date]") {
     }
 }
 
-SCENARIO("Should output the Pesel to a stream", "[pesel][output][stream]")
-{
-    GIVEN("A Pesel")
-    {
-        Pesel pesel{{7,4,0,2,1,9,4,6,2,2,5}};
+SCENARIO("Should output the Pesel to a stream", "[pesel][output][stream]") {
+    GIVEN("A Pesel") {
+        Pesel pesel{{7, 4, 0, 2, 1, 9, 4, 6, 2, 2, 5}};
         std::string str{"74021946225"};
 
-        WHEN("It's output to a stream")
-        {
+        WHEN("It's output to a stream") {
             std::stringstream stream{};
             stream << pesel;
 
-            THEN("It should be correct")
-            {
-                REQUIRE(stream.str() == str);
-            }
+            THEN("It should be correct") { REQUIRE(stream.str() == str); }
+        }
+    }
+}
+
+SCENARIO("Should parse the Pesel from a stream", "[pesel][input][stream]") {
+    GIVEN("A stream containing Pesel string") {
+        Pesel pesel{{7, 4, 0, 2, 1, 9, 4, 6, 2, 2, 5}};
+        std::stringstream stream{"74021946225"};
+
+        WHEN("It's output to a stream") {
+            Pesel peselParsed{};
+            stream >> peselParsed;
+
+            THEN("It should be correct") { REQUIRE(peselParsed == pesel); }
         }
     }
 }
