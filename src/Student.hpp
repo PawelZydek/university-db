@@ -25,6 +25,8 @@ class Student : public Person {
     Student(const Student& student) = default;
     Student(Student&& student) = default;
 
+    Student() = default;
+
     Student& operator=(const Student& student) = default;
     Student& operator=(Student&& student) = default;
 
@@ -35,6 +37,7 @@ class Student : public Person {
     void set_index_num(unsigned int index_num) { index_num_ = index_num; }
 
     friend std::ostream& operator<<(std::ostream&, const Student&);
+    friend std::istream& operator>>(std::istream&, Student&);
 
    private:
     unsigned int index_num_{};

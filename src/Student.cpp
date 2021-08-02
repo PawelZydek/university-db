@@ -31,3 +31,18 @@ std::ostream& operator<<(std::ostream& out, const Student& student) {
                << Person::formatDelimiter << student.gender_
                << Person::formatDelimiter << student.index_num_;
 }
+
+std::istream& operator>>(std::istream& in, Student& student) {
+    Person person{};
+    char delim{};
+    unsigned int id_number{};
+    in >> person >> delim >> id_number;
+    if (delim != ',') {
+        in.clear(std::ios_base::failbit);
+    }
+    if (!in) {
+        return in;
+    }
+    student = Student{person, id_number};
+    return in;
+}

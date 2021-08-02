@@ -33,7 +33,14 @@ target_include_directories(${PROJECT_NAME}-person-ut PUBLIC
 )
 target_compile_options (${PROJECT_NAME}-person-ut PRIVATE ${FLAGS} -g -O0)
 
+add_executable (${PROJECT_NAME}-student-ut tests/test-student.cpp ${SRC} tests/catch_amalgamated.cpp)
+target_include_directories(${PROJECT_NAME}-student-ut PUBLIC
+    src
+)
+target_compile_options (${PROJECT_NAME}-student-ut PRIVATE ${FLAGS} -g -O0)
+
 enable_testing ()
 add_test (NAME gender-tests COMMAND ${PROJECT_NAME}-gender-ut)
 add_test (NAME pesel-tests COMMAND ${PROJECT_NAME}-pesel-ut)
 add_test (NAME person-tests COMMAND ${PROJECT_NAME}-person-ut)
+add_test (NAME student-tests COMMAND ${PROJECT_NAME}-student-ut)
