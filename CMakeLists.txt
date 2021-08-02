@@ -6,7 +6,8 @@ set (SRC
     src/Gender.cpp 
     src/Pesel.cpp
     src/Person.cpp
-    src/Student.cpp)
+    src/Student.cpp
+    src/Employee.cpp)
 
 set (FLAGS -Wall -Wextra -Wpedantic -Wno-conversion -Werror)
 
@@ -39,8 +40,15 @@ target_include_directories(${PROJECT_NAME}-student-ut PUBLIC
 )
 target_compile_options (${PROJECT_NAME}-student-ut PRIVATE ${FLAGS} -g -O0)
 
+add_executable (${PROJECT_NAME}-employee-ut tests/test-employee.cpp ${SRC} tests/catch_amalgamated.cpp)
+target_include_directories(${PROJECT_NAME}-employee-ut PUBLIC
+    src
+)
+target_compile_options (${PROJECT_NAME}-employee-ut PRIVATE ${FLAGS} -g -O0)
+
 enable_testing ()
 add_test (NAME gender-tests COMMAND ${PROJECT_NAME}-gender-ut)
 add_test (NAME pesel-tests COMMAND ${PROJECT_NAME}-pesel-ut)
 add_test (NAME person-tests COMMAND ${PROJECT_NAME}-person-ut)
 add_test (NAME student-tests COMMAND ${PROJECT_NAME}-student-ut)
+add_test (NAME employee-tests COMMAND ${PROJECT_NAME}-employee-ut)
