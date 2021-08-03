@@ -77,3 +77,34 @@ SCENARIO("Should search by a Pesel", "[universitybase][search][pesel]") {
         }
     }
 }
+
+SCENARIO("Should sort the base by pesel", "[universitybase][pesel][sort]") {
+    GIVEN("A base with two Students, whose pesels vary") {
+        Student student1{"Jan",        "Kowalski",
+                         "Warszawa",   Pesel{{8, 0, 1, 0, 2, 8, 1, 8, 4, 9, 9}},
+                         Gender::male, 12345};
+
+        Student student2{
+            "Anna",         "Nowak",
+            "Krakow",       Pesel{{9, 2, 0, 9, 2, 3, 1, 2, 9, 7, 8}},
+            Gender::female, 7777};
+
+        UniversityBase base{};
+        base.add(student2);
+        base.add(student1);
+
+        static constexpr std::string_view string{
+            "Employees:\n"
+            "Students:\nJan,Kowalski,Warszawa,80102818499,male,12345\n"
+            "Anna,Nowak,Krakow,92092312978,female,7777\n"};
+        WHEN("sort_by_pesel is called") {
+            base.sort_by_pesel();
+            std::stringstream stream{};
+            base.display(stream);
+
+            THEN("The list should be sorted") {
+                REQUIRE(stream.str() == string);
+            }
+        }
+    }
+}

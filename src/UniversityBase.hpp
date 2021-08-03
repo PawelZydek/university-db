@@ -22,6 +22,8 @@ class UniversityBase {
 
     std::optional<std::shared_ptr<Person>> search_by_pesel(const Pesel&) const;
 
+    void sort_by_pesel();
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };

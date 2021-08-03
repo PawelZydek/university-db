@@ -1,5 +1,7 @@
 #include "UniversityBase.hpp"
 
+#include <algorithm>
+
 void UniversityBase::add(const Student& student) {
     people_.push_back(std::make_shared<Student>(student));
 }
@@ -52,4 +54,11 @@ std::optional<std::shared_ptr<Person>> UniversityBase::search_by_pesel(
         }
     }
     return output_ptr;
+}
+
+void UniversityBase::sort_by_pesel() {
+    std::sort(people_.begin(), people_.end(),
+              [](auto& person_ptr1, auto& person_ptr2) {
+                  return person_ptr1->get_pesel() < person_ptr2->get_pesel();
+              });
 }
