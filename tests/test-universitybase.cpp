@@ -139,3 +139,34 @@ SCENARIO("Should sort the base by surname", "[universitybase][surname][sort]") {
         }
     }
 }
+
+SCENARIO("Should erase Student by index_num",
+         "[universitybase][erase][index_num]") {
+    GIVEN("A base with two Students") {
+        Student student1{"Jan",        "Kowalski",
+                         "Warszawa",   Pesel{{8, 0, 1, 0, 2, 8, 1, 8, 4, 9, 9}},
+                         Gender::male, 12345};
+
+        Student student2{
+            "Anna",         "Nowak",
+            "Krakow",       Pesel{{9, 2, 0, 9, 2, 3, 1, 2, 9, 7, 8}},
+            Gender::female, 7777};
+
+        UniversityBase base{};
+        base.add(student2);
+        base.add(student1);
+
+        static constexpr std::string_view string{
+            "Employees:\n"
+            "Students:\nJan,Kowalski,Warszawa,80102818499,male,12345\n"};
+        WHEN("erase_by_index is called") {
+            base.erase_by_index(student2.get_index_num());
+            std::stringstream stream{};
+            base.display(stream);
+
+            THEN("The list should be sorted") {
+                REQUIRE(stream.str() == string);
+            }
+        }
+    }
+}

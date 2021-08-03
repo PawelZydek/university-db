@@ -70,3 +70,14 @@ void UniversityBase::sort_by_surname() {
                          person_ptr2->get_surname();
               });
 }
+
+void UniversityBase::erase_by_index(unsigned int index_num) {
+    people_.erase(
+        std::remove_if(
+            people_.begin(), people_.end(),
+            [index_num](auto& person_ptr) {
+                auto student_ptr = dynamic_cast<Student*>(person_ptr.get());
+                return student_ptr && student_ptr->get_index_num() == index_num;
+            }),
+        people_.end());
+}

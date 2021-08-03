@@ -25,6 +25,8 @@ class UniversityBase {
     void sort_by_pesel();
     void sort_by_surname();
 
+    void erase_by_index(unsigned int);
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };
