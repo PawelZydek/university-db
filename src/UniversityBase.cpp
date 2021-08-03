@@ -42,3 +42,14 @@ std::optional<std::shared_ptr<Person>> UniversityBase::search_by_surname(
     }
     return output_ptr;
 }
+
+std::optional<std::shared_ptr<Person>> UniversityBase::search_by_pesel(
+    const Pesel& pesel) const {
+    std::optional<std::shared_ptr<Person>> output_ptr{};
+    for (const auto& person_ptr : people_) {
+        if (person_ptr->get_pesel() == pesel) {
+            output_ptr = person_ptr;
+        }
+    }
+    return output_ptr;
+}

@@ -20,6 +20,8 @@ class UniversityBase {
     std::optional<std::shared_ptr<Person>> search_by_surname(
         std::string_view) const;
 
+    std::optional<std::shared_ptr<Person>> search_by_pesel(const Pesel&) const;
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };

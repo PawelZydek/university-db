@@ -56,3 +56,24 @@ SCENARIO("Should search by a surname string",
         }
     }
 }
+
+SCENARIO("Should search by a Pesel", "[universitybase][search][pesel]") {
+    GIVEN("A Student object added to a base object") {
+        UniversityBase base{};
+        Student student{"Jan",        "Kowalski",
+                        "Warszawa",   Pesel{{8, 0, 1, 0, 2, 8, 1, 8, 4, 9, 9}},
+                        Gender::male, 12345};
+        base.add(student);
+        WHEN("search_by_pesel is called") {
+            auto optional_ptr = base.search_by_pesel(student.get_pesel());
+
+            THEN("It should return shared_ptr with student's data") {
+                REQUIRE(optional_ptr.has_value());
+                auto student_ptr =
+                    dynamic_cast<Student*>(optional_ptr.value().get());
+                REQUIRE(student_ptr);
+                REQUIRE(*student_ptr == student);
+            }
+        }
+    }
+}
