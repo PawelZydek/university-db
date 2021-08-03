@@ -1,6 +1,7 @@
 #include "UniversityBase.hpp"
 
 #include <algorithm>
+#include <random>
 
 void UniversityBase::add(const Student& student) {
     people_.push_back(std::make_shared<Student>(student));
@@ -80,4 +81,51 @@ void UniversityBase::erase_by_index(unsigned int index_num) {
                 return student_ptr && student_ptr->get_index_num() == index_num;
             }),
         people_.end());
+}
+
+int random_number_gen(int min, int max) {
+    static std::mt19937_64 mersenne{std::random_device()()};
+    std::uniform_int_distribution roll{min, max};
+    return roll(mersenne);
+}
+
+enum class PersonChoice { student, employee };
+
+std::shared_ptr<Person> get_random_person(PersonChoice choice) {
+    static constexpr int arr_size{6};
+    static constexpr std::array<std::string_view, arr_size> names{
+        "Jan", "Anna", "Adam", "Maria", "Lukasz", "Katarzyna"};
+    static constexpr std::array<std::string_view, arr_size> surnames{
+        "Nowak", "Kowalski", "Wojcik", "Kowalczyk", "Kaminski", "Lewandowski"};
+    static constexpr std::array<std::string_view, arr_size> addresses{
+        "Warsaw", "Cracow", "Lodz", "Poznan", "Wroclaw", "Gdansk"};
+
+    Pesel pesel{{5, 6, 0, 2, 1, 0, 1, 6, 1, 3, 7}};
+
+    if (choice == PersonChoice::student) {
+        auto student_ptr = std::make_shared<Student>(
+            names[random_number_gen(0, arr_size - 1)].data(),
+            surnames[random_number_gen(0, arr_size - 1)].data(),
+            addresses[random_number_gen(0, arr_size - 1)].data(), pesel,
+            static_cast<Gender>(
+                random_number_gen(0, static_cast<int>(Gender::maxGender))),
+            random_number_gen(10000, 99999));
+        return student_ptr;
+    } else {
+        auto employee_ptr = std::make_shared<Employee>(
+            names[random_number_gen(0, arr_size - 1)].data(),
+            surnames[random_number_gen(0, arr_size - 1)].data(),
+            addresses[random_number_gen(0, arr_size - 1)].data(), pesel,
+            static_cast<Gender>(
+                random_number_gen(0, static_cast<int>(Gender::maxGender))),
+            random_number_gen(8000, 22000));
+        return employee_ptr;
+    }
+}
+
+void UniversityBase::generate_data(int count) {
+    for (int i{0}; i < count; ++i) {
+        PersonChoice choice{static_cast<PersonChoice>(random_number_gen(0, 1))};
+        people_.push_back(get_random_person(choice));
+    }
 }

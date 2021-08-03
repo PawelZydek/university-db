@@ -27,6 +27,8 @@ class UniversityBase {
 
     void erase_by_index(unsigned int);
 
+    void generate_data(int);
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };
