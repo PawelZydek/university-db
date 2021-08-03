@@ -129,3 +129,19 @@ void UniversityBase::generate_data(int count) {
         people_.push_back(get_random_person(choice));
     }
 }
+
+void UniversityBase::set_salary_by_pesel(const Pesel& pesel,
+                                         unsigned int salary) {
+    auto person_iterator = std::find_if(
+        people_.begin(), people_.end(), [&pesel](auto& person_ptr) {
+            return person_ptr->get_pesel() == pesel;
+        });
+
+    if (person_iterator == people_.end()) {
+        return;
+    }
+    auto employee_ptr = dynamic_cast<Employee*>((*person_iterator).get());
+    if (employee_ptr) {
+        employee_ptr->set_salary(salary);
+    }
+}

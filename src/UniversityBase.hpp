@@ -29,6 +29,8 @@ class UniversityBase {
 
     void generate_data(int);
 
+    void set_salary_by_pesel(const Pesel&, unsigned int);
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };

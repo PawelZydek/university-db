@@ -12,7 +12,7 @@ Homework for the Coders-School online course
 - :heavy_check_mark: Write unit tests for Student class
 - :heavy_check_mark: Create Employee class derived from Person
 - :heavy_check_mark: Write unit tests for Employee class
-- [ ] Create UniversityBase class
+- :heavy_check_mark: Create UniversityBase class
 - [ ] Implement UniversityBase methods
 - [ ] Write unit tests for UniversityBase class
 - [ ] Wrap everything in a namespace

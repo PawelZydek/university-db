@@ -170,3 +170,30 @@ SCENARIO("Should erase Student by index_num",
         }
     }
 }
+
+SCENARIO("Should set the salary by pesel",
+         "[universitybase][salary][pesel][set]") {
+    GIVEN("A base with an Employee") {
+        Employee employee{
+            "Jan",        "Kowalski",
+            "Warszawa",   Pesel{{8, 0, 1, 0, 2, 8, 1, 8, 4, 9, 9}},
+            Gender::male, 15000};
+
+        UniversityBase base{};
+        base.add(employee);
+
+        static constexpr std::string_view string{
+            "Employees:\nJan,Kowalski,Warszawa,80102818499,male,17000\n"
+            "Students:\n"};
+        int target_salary{17000};
+        WHEN("set_salary_by_pesel is called") {
+            base.set_salary_by_pesel(employee.get_pesel(), target_salary);
+            std::stringstream stream{};
+            base.display(stream);
+
+            THEN("The list should have the changed salary") {
+                REQUIRE(stream.str() == string);
+            }
+        }
+    }
+}
