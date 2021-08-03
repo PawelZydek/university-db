@@ -5,7 +5,7 @@
 #include <string_view>
 
 SCENARIO("Should add Students and Employees to the base and display the list",
-         "[UniversityBase][add][display]") {
+         "[universitybase][add][display]") {
     GIVEN("A UniversityBase object, a Student and an Employee") {
         UniversityBase base{};
         Student student{"Jan",        "Kowalski",
@@ -30,6 +30,28 @@ SCENARIO("Should add Students and Employees to the base and display the list",
 
             THEN("The obtained string should match the str string") {
                 REQUIRE(stream.str() == str);
+            }
+        }
+    }
+}
+
+SCENARIO("Should search by a surname string",
+         "[universitybase][search][surname]") {
+    GIVEN("A Student object added to a base object") {
+        UniversityBase base{};
+        Student student{"Jan",        "Kowalski",
+                        "Warszawa",   Pesel{{8, 0, 1, 0, 2, 8, 1, 8, 4, 9, 9}},
+                        Gender::male, 12345};
+        base.add(student);
+        WHEN("search_by_surname is called") {
+            auto optional_ptr = base.search_by_surname(student.get_surname());
+
+            THEN("It should return shared_ptr with student's data") {
+                REQUIRE(optional_ptr.has_value());
+                auto student_ptr =
+                    dynamic_cast<Student*>(optional_ptr.value().get());
+                REQUIRE(student_ptr);
+                REQUIRE(*student_ptr == student);
             }
         }
     }

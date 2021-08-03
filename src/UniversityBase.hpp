@@ -6,15 +6,19 @@
 #include "Employee.hpp"
 #include "Student.hpp"
 
+#include <optional>
+
 class UniversityBase {
    public:
     void add(const Student&);
     void add(Student&&);
-
     void add(const Employee&);
     void add(Employee&&);
 
     void display(std::ostream&) const;
+
+    std::optional<std::shared_ptr<Person>> search_by_surname(
+        std::string_view) const;
 
    private:
     std::vector<std::shared_ptr<Person>> people_{};

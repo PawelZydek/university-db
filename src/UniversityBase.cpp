@@ -31,3 +31,14 @@ void UniversityBase::display(std::ostream& out) const {
         }
     }
 }
+
+std::optional<std::shared_ptr<Person>> UniversityBase::search_by_surname(
+    std::string_view surname) const {
+    std::optional<std::shared_ptr<Person>> output_ptr{};
+    for (const auto& person_ptr : people_) {
+        if (person_ptr->get_surname() == surname) {
+            output_ptr = person_ptr;
+        }
+    }
+    return output_ptr;
+}
