@@ -13,7 +13,7 @@ jobs:
     - name: Compile
       working-directory: ${{ env.path }}
       run: |
-        cmake ..
+        cmake ../..
         make
     - name: Run tests
       working-directory: ${{ env.path }}
