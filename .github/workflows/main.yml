@@ -3,10 +3,10 @@ name: university-db
 on: [push]
 
 jobs:
-  university-db:
+  Compile and run tests:
     runs-on: ubuntu-latest
     env:
-      path: build/
+      path: build
     steps:
     - name: Create build directory
       run: mkdir ${{ env.path }}
