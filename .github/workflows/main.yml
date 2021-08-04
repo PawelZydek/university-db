@@ -1,6 +1,6 @@
 name: university-db
 
-on: [commit]
+on: [push]
 
 jobs:
   university-db:
