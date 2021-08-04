@@ -18,8 +18,8 @@ static constexpr std::array<pair_type, 8> genderStringPairs{
     pair_type{"other"sv, Gender::other}};
 
 std::ostream& operator<<(std::ostream& out, const Gender gender) {
-    auto it = std::ranges::find_if(
-        genderStringPairs,
+    auto it = std::find_if(
+        genderStringPairs.cbegin(), genderStringPairs.cend(),
         [gender](const auto& pair) { return gender == pair.second; });
 
     if (it != genderStringPairs.cend()) {
@@ -29,9 +29,9 @@ std::ostream& operator<<(std::ostream& out, const Gender gender) {
 }
 
 Gender string_to_gender(std::string_view str) {
-    auto it = std::ranges::find_if(genderStringPairs, [str](const auto& pair) {
-        return str == pair.first;
-    });
+    auto it =
+        std::find_if(genderStringPairs.cbegin(), genderStringPairs.cend(),
+                     [str](const auto& pair) { return str == pair.first; });
 
     return (it != genderStringPairs.cend()) ? it->second : Gender::other;
 }
@@ -42,10 +42,10 @@ std::istream& operator>>(std::istream& in, Gender& gender) {
         if (isalpha(ch)) {
             ch = tolower(ch);
             str.push_back(ch);
-            if (std::ranges::find_if(genderStringPairs,
-                                     [&str](const auto& pair) {
-                                         return str == pair.first;
-                                     }) != genderStringPairs.cend()) {
+            if (std::find_if(
+                    genderStringPairs.cbegin(), genderStringPairs.cend(),
+                    [&str](const auto& pair) { return str == pair.first; }) !=
+                genderStringPairs.cend()) {
                 break;
             }
         } else {
