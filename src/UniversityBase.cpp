@@ -1,5 +1,6 @@
 #include "UniversityBase.hpp"
 #include <algorithm>
+#include <fstream>
 #include <random>
 #include <unordered_set>
 
@@ -117,7 +118,7 @@ std::shared_ptr<Person> get_random_person(PersonChoice choice) {
             surnames[random_number_gen(0, arr_size - 1)].data(),
             addresses[random_number_gen(0, arr_size - 1)].data(), pesel,
             static_cast<Gender>(
-                random_number_gen(0, static_cast<int>(Gender::maxGender))),
+                random_number_gen(0, static_cast<int>(Gender::maxGender) - 1)),
             random_number_gen(8000, 22000));
         return employee_ptr;
     }
@@ -168,4 +169,35 @@ void UniversityBase::sort_by_salary() {
     for (size_t i{0}; i < indeces.size(); ++i) {
         people_[indeces[i]] = std::move(employees[i]);
     }
+}
+
+void UniversityBase::write_employees_to_file(std::string_view file_path) const {
+    std::ofstream employee_file{file_path.data()};
+
+    employee_file << "Name,Surname,Address,Pesel,Gender,Salary\n";
+    for (const auto& person_ptr : people_) {
+        if (const auto employee_ptr =
+                dynamic_cast<Employee*>(person_ptr.get())) {
+            employee_file << *employee_ptr << '\n';
+        }
+    }
+    employee_file.close();
+}
+
+void UniversityBase::write_students_to_file(std::string_view file_path) const {
+    std::ofstream student_file{file_path.data()};
+
+    student_file << "Name,Surname,Address,Pesel,Gender,IndexNumber\n";
+    for (const auto& person_ptr : people_) {
+        if (const auto student_ptr = dynamic_cast<Student*>(person_ptr.get())) {
+            student_file << *student_ptr << '\n';
+        }
+    }
+    student_file.close();
+}
+
+void UniversityBase::write_to_file(std::string_view path1,
+                                   std::string_view path2) const {
+    write_employees_to_file(path1);
+    write_students_to_file(path2);
 }

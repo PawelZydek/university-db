@@ -4,11 +4,9 @@ int main() {
     UniversityBase base{};
     base.generate_data(10);
 
-    base.display(std::cout);
+    base.write_to_file();
 
-    base.sort_by_salary();
-
-    base.display(std::cout);
+    base.display();
 
     return 0;
 }

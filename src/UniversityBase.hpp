@@ -15,7 +15,7 @@ class UniversityBase {
     void add(const Employee&);
     void add(Employee&&);
 
-    void display(std::ostream&) const;
+    void display(std::ostream& out = std::cout) const;
 
     std::optional<std::shared_ptr<Person>> search_by_surname(
         std::string_view) const;
@@ -32,6 +32,11 @@ class UniversityBase {
     void set_salary_by_pesel(const Pesel&, unsigned int);
 
     void sort_by_salary();
+
+    void write_employees_to_file(std::string_view) const;
+    void write_students_to_file(std::string_view) const;
+    void write_to_file(std::string_view path1 = "employees.csv",
+                       std::string_view path2 = "students.csv") const;
 
    private:
     std::vector<std::shared_ptr<Person>> people_{};

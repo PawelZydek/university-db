@@ -3,22 +3,21 @@
 
 #include "Person.hpp"
 
-class Employee : public Person
-{
-public:
+class Employee : public Person {
+   public:
     Employee(const std::string&,
-            const std::string&,
-            const std::string&,
-            const Pesel&,
-            Gender,
-            unsigned int);
+             const std::string&,
+             const std::string&,
+             const Pesel&,
+             Gender,
+             unsigned int);
 
     Employee(std::string&&,
-            std::string&&,
-            std::string&&,
-            Pesel&&,
-            Gender,
-            unsigned int);
+             std::string&&,
+             std::string&&,
+             Pesel&&,
+             Gender,
+             unsigned int);
 
     Employee(const Person&, unsigned int);
     Employee(Person&&, unsigned int);
@@ -40,7 +39,7 @@ public:
     friend std::ostream& operator<<(std::ostream&, const Employee&);
     friend std::istream& operator>>(std::istream&, Employee&);
 
-private:
+   private:
     unsigned int salary_{};
 };
 
