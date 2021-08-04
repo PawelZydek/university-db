@@ -196,8 +196,40 @@ void UniversityBase::write_students_to_file(std::string_view file_path) const {
     student_file.close();
 }
 
-void UniversityBase::write_to_file(std::string_view path1,
-                                   std::string_view path2) const {
-    write_employees_to_file(path1);
-    write_students_to_file(path2);
+void UniversityBase::write_to_file(std::string_view employee_path,
+                                   std::string_view student_path) const {
+    write_employees_to_file(employee_path);
+    write_students_to_file(student_path);
+}
+
+void UniversityBase::read_employees_from_file(std::string_view file_path) {
+    std::ifstream file_stream{file_path.data()};
+
+    if (!file_stream) {
+        throw std::runtime_error{"the file does not exist"};
+    }
+
+    std::string tag{};
+    std::getline(file_stream, tag);
+
+    for (Employee employee{}; file_stream >> employee;) {
+        people_.push_back(std::make_shared<Employee>(std::move(employee)));
+    }
+    file_stream.close();
+}
+
+void UniversityBase::read_students_from_file(std::string_view file_path) {
+    std::ifstream file_stream{file_path.data()};
+
+    if (!file_stream) {
+        throw std::runtime_error{"the file does not exist"};
+    }
+
+    std::string tag{};
+    std::getline(file_stream, tag);
+
+    for (Student student{}; file_stream >> student;) {
+        people_.push_back(std::make_shared<Student>(std::move(student)));
+    }
+    file_stream.close();
 }

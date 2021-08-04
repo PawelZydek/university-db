@@ -35,8 +35,11 @@ class UniversityBase {
 
     void write_employees_to_file(std::string_view) const;
     void write_students_to_file(std::string_view) const;
-    void write_to_file(std::string_view path1 = "employees.csv",
-                       std::string_view path2 = "students.csv") const;
+    void write_to_file(std::string_view employee_path = "employees.csv",
+                       std::string_view student_path = "students.csv") const;
+
+    void read_employees_from_file(std::string_view);
+    void read_students_from_file(std::string_view);
 
    private:
     std::vector<std::shared_ptr<Person>> people_{};
