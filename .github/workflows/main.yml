@@ -1,0 +1,20 @@
+name: university-db
+
+on: [commit]
+
+jobs:
+  university-db:
+    runs-on: ubuntu-latest
+    env:
+      path: build/
+    steps:
+    - name: Create build directory
+      run: mkdir ${{ env.path }}
+    - name: Compile
+      working-directory: ${{ env.path }}
+      run: |
+        cmake ..
+        make
+    - name: Run tests
+      working-directory: ${{ env.path }}
+      run: ctest -V
