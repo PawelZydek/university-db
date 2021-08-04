@@ -31,6 +31,8 @@ class UniversityBase {
 
     void set_salary_by_pesel(const Pesel&, unsigned int);
 
+    void sort_by_salary();
+
    private:
     std::vector<std::shared_ptr<Person>> people_{};
 };

@@ -1,7 +1,7 @@
 #include "UniversityBase.hpp"
-
 #include <algorithm>
 #include <random>
+#include <unordered_set>
 
 void UniversityBase::add(const Student& student) {
     people_.push_back(std::make_shared<Student>(student));
@@ -143,5 +143,29 @@ void UniversityBase::set_salary_by_pesel(const Pesel& pesel,
     auto employee_ptr = dynamic_cast<Employee*>((*person_iterator).get());
     if (employee_ptr) {
         employee_ptr->set_salary(salary);
+    }
+}
+
+void UniversityBase::sort_by_salary() {
+    std::vector<size_t> indeces{};
+    indeces.reserve(people_.size());
+    std::vector<std::shared_ptr<Employee>> employees{};
+    for (size_t i{0}; i < people_.size(); ++i) {
+        if (auto employee_ptr =
+                std::dynamic_pointer_cast<Employee>(people_[i])) {
+            indeces.push_back(i);
+            employees.push_back(std::move(employee_ptr));
+        }
+    }
+    indeces.shrink_to_fit();
+
+    std::sort(employees.begin(), employees.end(),
+              [](auto& employee_ptr1, auto& employee_ptr2) {
+                  return employee_ptr1->get_salary() <
+                         employee_ptr2->get_salary();
+              });
+
+    for (size_t i{0}; i < indeces.size(); ++i) {
+        people_[indeces[i]] = std::move(employees[i]);
     }
 }

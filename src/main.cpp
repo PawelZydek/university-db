@@ -6,5 +6,9 @@ int main() {
 
     base.display(std::cout);
 
+    base.sort_by_salary();
+
+    base.display(std::cout);
+
     return 0;
 }
