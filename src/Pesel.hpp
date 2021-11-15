@@ -15,9 +15,7 @@
  */
 class Pesel {
    public:
-    // Copy constructor
     Pesel(const std::array<uint8_t, 11>&);
-    // Default constructor
     Pesel() = default;
 
     /**
